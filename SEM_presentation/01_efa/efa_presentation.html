@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>SEM using R</title>
+    <meta charset="utf-8" />
+    <meta name="date" content="2021-07-25" />
+    <script src="efa_presentation_files/header-attrs/header-attrs.js"></script>
+    <link href="efa_presentation_files/tile-view/tile-view.css" rel="stylesheet" />
+    <script src="efa_presentation_files/tile-view/tile-view.js"></script>
+    <link href="efa_presentation_files/xaringanExtra-extra-styles/xaringanExtra-extra-styles.css" rel="stylesheet" />
+    <link href="efa_presentation_files/pagedtable/css/pagedtable.css" rel="stylesheet" />
+    <script src="efa_presentation_files/pagedtable/js/pagedtable.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="css/presentation.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# SEM using R
+## Session 1: Exploratory Factor Analysis
+### <br> 2021-07-25
+
+---
+
+
+layout: true
+
+
+
+
+
+
+
+
+---
+## Learning objectives
+
+1. Perform
+2. Perform
+
+---
+class: middle center
+
+# Factor analysis
+----
+
+---
+
+## Types of factor analysis
+
+.left-column-50[
+#### Exploratory factor analysis
+
+- Estimate all possible variable/ factor relationships
+- Looking for patterns in the data
+- Use when you don't have a well-dveloped theory
+]
+
+--
+
+&lt;br&gt;
+.right-column-50[
+#### Confirmatory factor analysis
+
+- Only specified variables/factor relationships
+- Testing a theory that you know in advance
+- This is the right thing to publish!
+]
+
+---
+
+## Interpreting factor analysis
+
+.left-column-50[
+#### Exploratory factor analysis
+
+- Difficult to interpret without a theory.
+- factor loadings: meanings can sometimes be inferred  from patterns.
+]
+
+&lt;br&gt;
+
+.right-column-50[
+&lt;img src="image/efa_interpret.png" width="50%" /&gt;
+]
+
+---
+
+## Interpreting factor analysis
+
+.left-column-50[
+#### Confirmatory factor analysis
+
+- Model fit: how well the hypothesized model fits the data.
+- Factor loadings: how well items measure their corresponding constructs.
+]
+
+&lt;br&gt;
+
+.right-column-50[
+&lt;img src="image/cfa_interpret.png" width="50%" /&gt;
+]
+
+---
+class: middle center
+
+# Exploratory Factor Analysis
+----
+
+---
+
+## How many dimensions do you have?
+
+&lt;br&gt;
+&lt;img src="image/dimension_reduction.gif" width="50%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Dataset
+
+.leftcol40[
+(Info here!)
+]
+
+.rightcol60[
+.code80[
+
+```r
+rmarkdown::paged_table(data)
+```
+
+&lt;div data-pagedtable="false"&gt;
+  &lt;script data-pagedtable-source type="application/json"&gt;
+{"columns":[{"label":["x6"],"name":[1],"type":["dbl+lbl"],"align":["right"]},{"label":["x7"],"name":[2],"type":["dbl+lbl"],"align":["right"]},{"label":["x8"],"name":[3],"type":["dbl+lbl"],"align":["right"]},{"label":["x9"],"name":[4],"type":["dbl+lbl"],"align":["right"]},{"label":["x10"],"name":[5],"type":["dbl+lbl"],"align":["right"]},{"label":["x11"],"name":[6],"type":["dbl+lbl"],"align":["right"]},{"label":["x12"],"name":[7],"type":["dbl+lbl"],"align":["right"]},{"label":["x13"],"name":[8],"type":["dbl+lbl"],"align":["right"]},{"label":["x14"],"name":[9],"type":["dbl+lbl"],"align":["right"]},{"label":["x16"],"name":[10],"type":["dbl+lbl"],"align":["right"]},{"label":["x18"],"name":[11],"type":["dbl+lbl"],"align":["right"]}],"data":[{"1":"8.5","2":"3.9","3":"2.5","4":"5.9","5":"4.8","6":"4.9","7":"6.0","8":"6.8","9":"4.7","10":"5.0","11":"3.7"},{"1":"8.2","2":"2.7","3":"5.1","4":"7.2","5":"3.4","6":"7.9","7":"3.1","8":"5.3","9":"5.5","10":"3.9","11":"4.9"},{"1":"9.2","2":"3.4","3":"5.6","4":"5.6","5":"5.4","6":"7.4","7":"5.8","8":"4.5","9":"6.2","10":"5.4","11":"4.5"},{"1":"6.4","2":"3.3","3":"7.0","4":"3.7","5":"4.7","6":"4.7","7":"4.5","8":"8.8","9":"7.0","10":"4.3","11":"3.0"},{"1":"9.0","2":"3.4","3":"5.2","4":"4.6","5":"2.2","6":"6.0","7":"4.5","8":"6.8","9":"6.1","10":"4.5","11":"3.5"},{"1":"6.5","2":"2.8","3":"3.1","4":"4.1","5":"4.0","6":"4.3","7":"3.7","8":"8.5","9":"5.1","10":"3.6","11":"3.3"},{"1":"6.9","2":"3.7","3":"5.0","4":"2.6","5":"2.1","6":"2.3","7":"5.4","8":"8.9","9":"4.8","10":"2.1","11":"2.0"},{"1":"6.2","2":"3.3","3":"3.9","4":"4.8","5":"4.6","6":"3.6","7":"5.1","8":"6.9","9":"5.4","10":"4.3","11":"3.7"},{"1":"5.8","2":"3.6","3":"5.1","4":"6.7","5":"3.7","6":"5.9","7":"5.8","8":"9.3","9":"5.9","10":"4.4","11":"4.6"},{"1":"6.4","2":"4.5","3":"5.1","4":"6.1","5":"4.7","6":"5.7","7":"5.7","8":"8.4","9":"5.4","10":"4.1","11":"4.4"},{"1":"8.7","2":"3.2","3":"4.6","4":"4.8","5":"2.7","6":"6.8","7":"4.6","8":"6.8","9":"5.8","10":"3.8","11":"4.0"},{"1":"6.1","2":"4.9","3":"6.3","4":"3.9","5":"4.4","6":"3.9","7":"6.4","8":"8.2","9":"5.8","10":"3.0","11":"3.2"},{"1":"9.5","2":"5.6","3":"4.6","4":"6.9","5":"5.0","6":"6.9","7":"6.6","8":"7.6","9":"6.5","10":"5.1","11":"4.4"},{"1":"9.2","2":"3.9","3":"5.7","4":"5.5","5":"2.4","6":"8.4","7":"4.8","8":"7.1","9":"6.7","10":"4.5","11":"4.2"},{"1":"6.3","2":"4.5","3":"4.7","4":"6.9","5":"4.5","6":"6.8","7":"5.9","8":"8.8","9":"6.0","10":"4.8","11":"5.2"},{"1":"8.7","2":"3.2","3":"4.0","4":"6.8","5":"3.2","6":"7.8","7":"3.8","8":"4.9","9":"6.1","10":"4.3","11":"4.5"},{"1":"5.7","2":"4.0","3":"6.7","4":"6.0","5":"3.3","6":"5.5","7":"5.1","8":"6.2","9":"6.7","10":"4.2","11":"4.5"},{"1":"5.9","2":"4.1","3":"5.5","4":"7.2","5":"3.5","6":"6.4","7":"5.5","8":"8.4","9":"6.2","10":"5.7","11":"4.8"},{"1":"5.6","2":"3.4","3":"5.1","4":"6.4","5":"3.7","6":"5.7","7":"5.6","8":"9.1","9":"5.4","10":"5.0","11":"4.5"},{"1":"9.1","2":"4.5","3":"3.6","4":"6.4","5":"5.3","6":"5.3","7":"7.1","8":"8.4","9":"5.8","10":"4.5","11":"4.4"},{"1":"5.2","2":"3.8","3":"7.1","4":"5.2","5":"3.9","6":"4.3","7":"5.0","8":"8.4","9":"7.1","10":"3.3","11":"3.3"},{"1":"9.6","2":"5.7","3":"6.8","4":"5.9","5":"5.4","6":"8.3","7":"7.8","8":"4.5","9":"6.4","10":"4.3","11":"4.3"},{"1":"8.6","2":"3.6","3":"7.4","4":"5.1","5":"3.5","6":"7.3","7":"4.7","8":"3.7","9":"6.7","10":"4.8","11":"4.0"},{"1":"9.3","2":"2.4","3":"2.6","4":"7.2","5":"2.2","6":"7.2","7":"4.5","8":"6.2","9":"6.4","10":"6.7","11":"4.5"},{"1":"6.0","2":"4.1","3":"5.3","4":"4.7","5":"3.5","6":"5.3","7":"5.3","8":"8.0","9":"6.5","10":"4.7","11":"4.0"},{"1":"6.4","2":"3.6","3":"6.6","4":"6.1","5":"4.0","6":"3.9","7":"5.3","8":"7.1","9":"6.1","10":"5.6","11":"3.9"},{"1":"8.5","2":"3.0","3":"7.2","4":"5.8","5":"4.1","6":"7.6","7":"3.7","8":"4.8","9":"6.9","10":"5.3","11":"4.4"},{"1":"7.0","2":"3.3","3":"5.4","4":"5.5","5":"2.6","6":"4.8","7":"4.2","8":"9.0","9":"6.5","10":"4.3","11":"3.7"},{"1":"8.5","2":"3.0","3":"5.7","4":"6.0","5":"2.3","6":"7.6","7":"3.7","8":"4.8","9":"5.8","10":"5.7","11":"4.4"},{"1":"7.6","2":"3.6","3":"3.0","4":"4.0","5":"5.1","6":"4.2","7":"4.6","8":"7.7","9":"4.9","10":"4.7","11":"3.5"},{"1":"6.9","2":"3.4","3":"8.5","4":"4.3","5":"4.5","6":"6.4","7":"4.7","8":"5.2","9":"7.7","10":"3.7","11":"3.3"},{"1":"8.1","2":"2.5","3":"7.2","4":"4.5","5":"2.3","6":"5.1","7":"3.8","8":"6.6","9":"6.8","10":"3.0","11":"3.0"},{"1":"6.7","2":"3.7","3":"6.5","4":"5.3","5":"5.3","6":"5.1","7":"4.9","8":"9.2","9":"5.7","10":"3.5","11":"3.4"},{"1":"8.0","2":"3.3","3":"6.1","4":"5.7","5":"5.5","6":"4.6","7":"4.7","8":"8.7","9":"5.9","10":"4.7","11":"4.2"},{"1":"6.7","2":"4.0","3":"5.2","4":"3.9","5":"3.0","6":"5.4","7":"6.8","8":"8.4","9":"6.2","10":"2.5","11":"3.5"},{"1":"8.7","2":"3.2","3":"6.1","4":"4.3","5":"3.5","6":"6.1","7":"2.9","8":"5.6","9":"6.1","10":"3.1","11":"2.5"},{"1":"9.0","2":"3.4","3":"5.9","4":"4.6","5":"3.9","6":"6.0","7":"4.5","8":"6.8","9":"6.4","10":"3.9","11":"3.5"},{"1":"9.6","2":"4.1","3":"6.2","4":"7.3","5":"2.9","6":"7.7","7":"5.5","8":"7.7","9":"6.1","10":"5.2","11":"4.9"},{"1":"8.2","2":"3.6","3":"3.9","4":"6.2","5":"5.8","6":"4.9","7":"5.0","8":"9.0","9":"5.2","10":"4.7","11":"4.5"},{"1":"6.1","2":"4.9","3":"3.0","4":"4.8","5":"5.1","6":"3.9","7":"6.4","8":"8.2","9":"5.1","10":"4.5","11":"3.2"},{"1":"8.3","2":"3.4","3":"3.3","4":"5.5","5":"3.1","6":"4.6","7":"5.2","8":"9.1","9":"4.1","10":"4.6","11":"3.9"},{"1":"9.4","2":"3.8","3":"4.7","4":"5.4","5":"3.8","6":"6.5","7":"4.9","8":"8.5","9":"4.9","10":"4.1","11":"4.1"},{"1":"9.3","2":"5.1","3":"4.6","4":"6.8","5":"5.8","6":"6.6","7":"6.3","8":"7.4","9":"5.1","10":"4.6","11":"4.3"},{"1":"5.1","2":"5.1","3":"6.6","4":"6.9","5":"4.4","6":"5.4","7":"7.8","8":"5.9","9":"7.2","10":"4.9","11":"4.5"},{"1":"8.0","2":"2.5","3":"4.7","4":"7.1","5":"3.6","6":"7.7","7":"3.0","8":"5.2","9":"5.1","10":"4.3","11":"4.7"},{"1":"5.9","2":"4.1","3":"5.7","4":"5.9","5":"5.8","6":"6.4","7":"5.5","8":"8.4","9":"6.4","10":"5.2","11":"4.8"},{"1":"10.0","2":"4.3","3":"7.1","4":"6.3","5":"2.9","6":"5.4","7":"4.5","8":"3.8","9":"6.7","10":"5.0","11":"3.5"},{"1":"5.7","2":"3.8","3":"6.8","4":"7.5","5":"5.7","6":"5.7","7":"6.0","8":"8.2","9":"6.6","10":"6.5","11":"5.2"},{"1":"9.9","2":"3.7","3":"3.7","4":"6.1","5":"4.2","6":"7.0","7":"6.7","8":"6.8","9":"5.9","10":"4.5","11":"3.9"},{"1":"7.9","2":"3.9","3":"4.3","4":"5.8","5":"4.4","6":"6.9","7":"5.8","8":"4.7","9":"5.2","10":"4.1","11":"4.3"},{"1":"6.7","2":"3.6","3":"5.9","4":"4.2","5":"3.4","6":"4.7","7":"4.8","8":"7.2","9":"5.7","10":"4.0","11":"2.8"},{"1":"8.2","2":"2.7","3":"3.7","4":"7.4","5":"2.7","6":"7.9","7":"3.1","8":"5.3","9":"5.3","10":"4.5","11":"4.9"},{"1":"9.4","2":"2.5","3":"4.8","4":"6.1","5":"3.2","6":"7.3","7":"4.6","8":"6.3","9":"6.3","10":"4.7","11":"4.6"},{"1":"6.9","2":"3.4","3":"5.7","4":"4.4","5":"3.3","6":"6.4","7":"4.7","8":"5.2","9":"6.4","10":"3.2","11":"3.3"},{"1":"8.0","2":"3.3","3":"3.8","4":"5.8","5":"3.2","6":"4.6","7":"4.7","8":"8.7","9":"5.3","10":"4.9","11":"4.2"},{"1":"9.3","2":"3.8","3":"7.3","4":"5.7","5":"3.7","6":"6.4","7":"5.5","8":"7.4","9":"6.6","10":"4.1","11":"3.4"},{"1":"7.4","2":"5.1","3":"4.8","4":"7.7","5":"4.5","6":"7.2","7":"6.9","8":"9.6","9":"6.4","10":"5.7","11":"5.5"},{"1":"7.6","2":"3.6","3":"5.2","4":"5.8","5":"5.6","6":"6.6","7":"5.4","8":"4.4","9":"6.7","10":"4.6","11":"4.0"},{"1":"10.0","2":"4.3","3":"5.3","4":"3.7","5":"4.2","6":"5.4","7":"4.5","8":"3.8","9":"6.7","10":"3.7","11":"3.5"},{"1":"9.9","2":"2.8","3":"7.2","4":"6.9","5":"2.6","6":"5.8","7":"3.5","8":"5.4","9":"6.2","10":"5.6","11":"4.0"},{"1":"8.7","2":"3.2","3":"8.4","4":"6.1","5":"2.8","6":"7.8","7":"3.8","8":"4.9","9":"7.2","10":"5.4","11":"4.5"},{"1":"8.4","2":"3.8","3":"6.7","4":"5.0","5":"4.5","6":"4.7","7":"5.9","8":"6.7","9":"5.1","10":"2.7","11":"3.6"},{"1":"8.8","2":"3.9","3":"3.8","4":"5.1","5":"4.3","6":"4.7","7":"4.8","8":"5.8","9":"5.0","10":"4.4","11":"2.9"},{"1":"7.7","2":"2.2","3":"6.3","4":"4.5","5":"2.4","6":"4.7","7":"3.4","8":"6.2","9":"6.0","10":"3.3","11":"2.6"},{"1":"6.6","2":"3.6","3":"5.8","4":"4.1","5":"4.9","6":"4.7","7":"4.8","8":"7.2","9":"6.5","10":"3.5","11":"2.8"},{"1":"5.7","2":"3.8","3":"3.5","4":"6.7","5":"5.4","6":"5.7","7":"6.0","8":"8.2","9":"5.4","10":"4.7","11":"5.2"},{"1":"5.7","2":"4.0","3":"7.9","4":"6.4","5":"2.7","6":"5.5","7":"5.1","8":"6.2","9":"7.5","10":"5.0","11":"4.5"},{"1":"5.5","2":"3.7","3":"4.7","4":"5.4","5":"4.3","6":"5.3","7":"4.9","8":"6.0","9":"5.6","10":"4.5","11":"4.3"},{"1":"7.5","2":"3.5","3":"3.8","4":"3.5","5":"2.9","6":"4.1","7":"4.5","8":"7.6","9":"5.1","10":"4.0","11":"3.4"},{"1":"6.4","2":"3.6","3":"2.7","4":"5.3","5":"3.9","6":"3.9","7":"5.3","8":"7.1","9":"5.2","10":"4.7","11":"3.9"},{"1":"9.1","2":"4.5","3":"6.1","4":"5.9","5":"6.3","6":"5.3","7":"7.1","8":"8.4","9":"7.1","10":"5.4","11":"4.4"},{"1":"6.7","2":"3.2","3":"3.0","4":"3.7","5":"4.8","6":"6.3","7":"4.5","8":"5.0","9":"5.2","10":"2.9","11":"3.1"},{"1":"6.5","2":"4.3","3":"2.7","4":"6.6","5":"6.5","6":"6.3","7":"6.0","8":"8.7","9":"4.7","10":"4.6","11":"4.6"},{"1":"9.9","2":"3.7","3":"7.5","4":"4.7","5":"5.6","6":"7.0","7":"6.7","8":"6.8","9":"7.2","10":"4.1","11":"3.9"},{"1":"8.5","2":"3.9","3":"5.3","4":"5.5","5":"5.0","6":"4.9","7":"6.0","8":"6.8","9":"5.7","10":"4.4","11":"3.7"},{"1":"9.9","2":"3.0","3":"6.8","4":"5.0","5":"5.4","6":"5.9","7":"4.8","8":"4.9","9":"7.3","10":"3.1","11":"3.8"},{"1":"7.6","2":"3.6","3":"7.6","4":"4.6","5":"4.7","6":"4.6","7":"5.0","8":"7.4","9":"8.1","10":"4.5","11":"3.9"},{"1":"9.4","2":"3.8","3":"7.0","4":"6.2","5":"4.7","6":"6.5","7":"4.9","8":"8.5","9":"7.3","10":"4.3","11":"4.1"},{"1":"9.3","2":"3.5","3":"6.3","4":"7.6","5":"5.5","6":"7.5","7":"5.9","8":"4.6","9":"6.6","10":"5.2","11":"4.6"},{"1":"7.1","2":"3.4","3":"4.9","4":"4.1","5":"4.0","6":"5.0","7":"5.9","8":"7.8","9":"6.1","10":"2.6","11":"2.7"},{"1":"9.9","2":"3.0","3":"7.4","4":"4.8","5":"4.0","6":"5.9","7":"4.8","8":"4.9","9":"5.9","10":"3.2","11":"3.8"},{"1":"8.7","2":"3.2","3":"6.4","4":"4.9","5":"2.4","6":"6.8","7":"4.6","8":"6.8","9":"6.3","10":"4.3","11":"4.0"},{"1":"8.6","2":"2.9","3":"5.8","4":"3.9","5":"2.9","6":"5.6","7":"4.0","8":"6.3","9":"6.1","10":"2.7","11":"3.0"},{"1":"6.4","2":"3.2","3":"6.7","4":"3.6","5":"2.2","6":"2.9","7":"5.0","8":"8.4","9":"7.3","10":"2.0","11":"1.6"},{"1":"7.7","2":"2.6","3":"6.7","4":"6.6","5":"1.9","6":"7.2","7":"4.3","8":"5.9","9":"6.5","10":"4.7","11":"4.3"},{"1":"7.5","2":"3.5","3":"4.1","4":"4.5","5":"3.5","6":"4.1","7":"4.5","8":"7.6","9":"4.9","10":"3.4","11":"3.4"},{"1":"5.0","2":"3.6","3":"1.3","4":"3.0","5":"3.5","6":"4.2","7":"4.9","8":"8.2","9":"4.3","10":"2.4","11":"3.1"},{"1":"7.7","2":"2.6","3":"8.0","4":"6.7","5":"3.5","6":"7.2","7":"4.3","8":"5.9","9":"6.9","10":"5.1","11":"4.3"},{"1":"9.1","2":"3.6","3":"5.5","4":"5.4","5":"4.2","6":"6.2","7":"4.6","8":"8.3","9":"6.5","10":"4.6","11":"3.9"},{"1":"5.5","2":"5.5","3":"7.7","4":"7.0","5":"5.6","6":"5.7","7":"8.2","8":"6.3","9":"7.4","10":"5.5","11":"4.9"},{"1":"9.1","2":"3.7","3":"7.0","4":"4.1","5":"4.4","6":"6.3","7":"5.4","8":"7.3","9":"7.5","10":"4.4","11":"3.3"},{"1":"7.1","2":"4.2","3":"4.1","4":"2.6","5":"2.1","6":"3.3","7":"4.5","8":"9.9","9":"5.5","10":"2.0","11":"2.4"},{"1":"9.2","2":"3.9","3":"4.6","4":"5.3","5":"4.2","6":"8.4","7":"4.8","8":"7.1","9":"6.2","10":"4.4","11":"4.2"},{"1":"9.3","2":"3.5","3":"5.4","4":"7.8","5":"4.6","6":"7.5","7":"5.9","8":"4.6","9":"6.4","10":"4.8","11":"4.6"},{"1":"9.3","2":"3.8","3":"4.0","4":"4.6","5":"4.7","6":"6.4","7":"5.5","8":"7.4","9":"5.3","10":"3.6","11":"3.4"},{"1":"8.6","2":"4.8","3":"5.6","4":"5.3","5":"2.3","6":"6.0","7":"5.7","8":"6.7","9":"5.8","10":"4.9","11":"3.6"},{"1":"7.4","2":"3.4","3":"2.6","4":"5.0","5":"4.1","6":"4.4","7":"4.8","8":"7.2","9":"4.5","10":"4.2","11":"3.7"},{"1":"8.7","2":"3.2","3":"3.3","4":"3.2","5":"3.1","6":"6.1","7":"2.9","8":"5.6","9":"5.0","10":"3.1","11":"2.5"},{"1":"7.8","2":"4.9","3":"5.8","4":"5.3","5":"5.2","6":"5.3","7":"7.1","8":"7.9","9":"6.0","10":"4.3","11":"3.9"},{"1":"7.9","2":"3.0","3":"4.4","4":"5.1","5":"5.9","6":"4.2","7":"4.8","8":"9.7","9":"5.7","10":"3.4","11":"3.5"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  &lt;/script&gt;
+&lt;/div&gt;
+]
+
+]
+
+---
+
+## Overall measures of intercorrelation
+
+1. Bartlett Test
+2. Measure of Sampling Adequacy
+
+---
+
+## Overall measures of intercorrelation
+
+.leftcol[
+#### 1. Bartlett Test
++ Examines the entire correlation matrix
++ Test the hypothesis that correlation matrix is an identity matrix.
++ A significant reulst signifies data are appropriate for FA
+]
+
+--
+.rightcol[
+
+```r
+BARTLETT(data, N= nrow(data))
+```
+
+```
+
+v The Bartlett's test of sphericity was significant at an alpha level of .05.
+  These data are probably suitable for factor analysis.
+
+  &lt;U+0001D712&gt;²(55) = 619.27, p &lt; .001
+```
+]
+
+---
+
+## Overall measures of intercorrelation
+
+#### 2. Kaiser-Meyen-Olkin (KMO Test)
++ Measure of sampling adequacy
++ Indicate the proportion of variance explained by the underlying factor.
++ Guidelines:
+  -   `\(\ge 0.90\)` - marvelous
+  -   `\(\ge 0.80\)` - meritorious
+  -   `\(\ge 0.70\)` - middling
+  -   `\(\ge 0.60\)` - mediocre
+  -   `\(\ge 0.50\)` - miserable
+  -   `\(&lt; 0.50\)` - unacceptable
+
+
+---
+## Overall measures of intercorrelation
+
+#### 2. Kaiser-Meyen-Olkin (KMO Test)
+--
+
+```r
+library(psych)
+KMO(data)
+```
+
+.code70[
+
+```
+
+-- Kaiser-Meyer-Olkin criterion (KMO) --------------------------------------------------------------------------
+
+! The overall KMO value for your data is mediocre.
+  These data are probably suitable for factor analysis.
+
+  Overall: 0.653
+
+  For each variable:
+   x6    x7    x8    x9   x10   x11   x12   x13   x14   x16   x18 
+0.509 0.626 0.519 0.787 0.779 0.622 0.622 0.753 0.511 0.760 0.666 
+```
+]
+---
+## Overall measures of intercorrelation
+
+#### 2. Kaiser-Meyen-Olkin (KMO Test)
+
+--
++ When overall MSA is less than 0.50
+  + Identify variables with lowest MSA subject for deletion.
+  + Recalculate MSA
+  + Repeat unitl overall MSA is 0.50 and above
+
+
++ Deletion of variables with MSA under 0.50 means variable's correlation with &lt;br&gt;other variables are poorly representing the extracted factor.
+
+---
+## Overall measures of intercorrelation
+
+#### 2. Kaiser-Meyen-Olkin (KMO Test)
+--
+
+.leftcol40[
+
+```r
+# Deselecting X15
+data_deselect &lt;- data %&gt;% 
+  select(-x15, -x17)
+
+KMO(data_deselect)
+```
+]
+
+.rightcol60[
+
+]
+
+
+
+---
+class: middle center
+
+# Let's practice!
+
+---
+class: middle center
+
+# Selecting factor extraction method
+----
+
+---
+## Partitioning the variance of a variable
+
+.leftcol[
+#### Unique variance
++ Variance associated with only a specific variable.
++ Not represented in the correlations among variables.
++ *Specific variance*
+  + associated uniquely with a single variable.
++ *Error variance*
+  + May be due to unreliability of data gathering process, measurement error, or a random component in the measured phenomenom.
+]
+
+.rightcol[
+#### Common variance
++ Shared variance with all other variables.
++ High common variance are more amenable for factor analysis.
++ Derived factors represents the shared or common variance among the variables.
+]
+
+---
+
+## Partitioning the variance of a variable
+
+.center[
+&lt;img src="image/deriving_factors.png" width="55%" /&gt;
+
+.font70[_Source: JF Hair et al. (2019) Multivariate data analysis._&lt;br&gt;] 
+]
+
+---
+
+## PCA vs Common factor analysis
+
+.leftcol[
+#### Principal component analysis (PCA)
++ Considers the total variance
++ data reduction is a primary concern
+
+#### Common factor analysis
++ Considers only the common variance or shared variance
++ Primary objective si to identify the laten dimensions or constructs
+]
+
+.rightcol[
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+.center[
+&lt;img src="image/pca_cfa.png" width="85%" /&gt;
+
+.font70[_Source: JF Hair et al. (2019) Multivariate data analysis._]]
+]
+
+
+---
+
+### Exploring possible factor
+
+.leftcol40[
+#### 1. Kaiser-Guttman Criterion
++ Only consider factors whose eigenvalues is greater than 1.
+
++ Rationale is that factor should account for the variance of at least a single variable if it is to be retained for interpretation.
+]
+
+--
+.rightcol60[
+
+
+
+```r
+library(EFAtools)
+KGC(Data, eigen_type = "EFA")
+```
+
+&lt;img src="image/kgc_plot.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+]
+
+
+---
+
+## Exploring possible factors
+
+.leftcol40[
+#### 2. Scree test
++ Identify the optimum number of factors that can be extracted before the amount of unique variance begins to dominate the common variance.
+
++ Inflection point or the "elbow"
+]
+
+--
+.rightcol60[
+
+
+
+```r
+library(psych)
+scree(data)
+```
+
+&lt;img src="image/scree_plot.png" width="70%" style="display: block; margin: auto;" /&gt;
+]
+
+
+---
+
+## Exploring possible factors
+
+.leftcol[
+#### 3. Parallel Test
++ Generates a large number of simulated dataset.
++ Each simulated dataset is factor analyzed.
+  + Results is the average eigenvalues across simulation.
+  + Values are then compared to the eigenvalues extracted from the original dataset.
+  + All factors with eigenvalues above those average eigenvalues are retained.
+
+]
+
+--
+.rightcol[
+
+
+
+```r
+library(psych)
+fa.parallel(data, fa = "fa")
+```
+
+&lt;img src="image/parallel_plot.png" width="85%" style="display: block; margin: auto;" /&gt;
+]
+
+
+---
+class: middle center
+
+# Let's practice!
+
+---
+
+## Three process of factor intepretation
+
+#### 1. Factor extraction
+#### 2. Factor rotation
+#### 3. Factor interpretation and re-specification
+
+---
+## Factor extraction
+
+.rightcol[
+.code40[
+
+```r
+fa_unrotated &lt;- fa(r = data, nfactors = 4,rotate = "none")
+print(fa_unrotated$loadings)
+```
+
+```
+
+Loadings:
+    MR1    MR2    MR3    MR4   
+x6   0.201 -0.408         0.463
+x7   0.290  0.656  0.267  0.210
+x8   0.278 -0.382  0.744 -0.169
+x9   0.862        -0.255 -0.184
+x10  0.287  0.456         0.127
+x11  0.689 -0.454 -0.141  0.316
+x12  0.398  0.807  0.348  0.255
+x13 -0.231  0.553        -0.287
+x14  0.378 -0.322  0.730 -0.151
+x16  0.747        -0.176 -0.181
+x18  0.895        -0.304 -0.198
+
+                 MR1   MR2   MR3   MR4
+SS loadings    3.215 2.226 1.500 0.679
+Proportion Var 0.292 0.202 0.136 0.062
+Cumulative Var 0.292 0.495 0.631 0.693
+```
+]
+]
+
+--
+
+.leftcol[
+#### Loadings
++ Correlation of each variable and the factor.
++ Indicate the degree of correspondence between variable and factor.
++ Higher loadings making the variable representative of the factor.
+]
+
+---
+## Factor extraction
+
+.rightcol[
+.code30[
+
+```r
+fa_unrotated &lt;- fa(r = data, nfactors = 4,rotate = "none")
+print(fa_unrotated$loadings)
+```
+
+```
+
+Loadings:
+    MR1    MR2    MR3    MR4   
+x6   0.201 -0.408         0.463
+x7   0.290  0.656  0.267  0.210
+x8   0.278 -0.382  0.744 -0.169
+x9   0.862        -0.255 -0.184
+x10  0.287  0.456         0.127
+x11  0.689 -0.454 -0.141  0.316
+x12  0.398  0.807  0.348  0.255
+x13 -0.231  0.553        -0.287
+x14  0.378 -0.322  0.730 -0.151
+x16  0.747        -0.176 -0.181
+x18  0.895        -0.304 -0.198
+
+                 MR1   MR2   MR3   MR4
+SS loadings    3.215 2.226 1.500 0.679
+Proportion Var 0.292 0.202 0.136 0.062
+Cumulative Var 0.292 0.495 0.631 0.693
+```
+]
+]
+
+--
+
+.leftcol[
+#### Loadings
++ `\(\le \pm 0.10 \approx\)` zero
++ `\(\pm 0.10\)` to `\(\pm 0.40\)` meet the minimal level
++ `\(\ge \pm 0.50\)` practically significant
++ `\(\ge \pm 0.70 \approx\)` well-defined structure
+
+#### SS loadings
++ Eigenvalues - column sum of squared factor loadings.
++ Relative importance of each factor in accounting for the variance associated with the set of variables.
+]
+
+---
+## Factor rotation
+#### Why do factor rotation?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"slideNumberFormat": "%current%",
+"highlightStyle": "github",
+"highlightLines": true,
+"ratio": "16:9",
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
