@@ -1,7 +1,7 @@
 ---
-title: "SEM using R"
-subtitle: "Session 1: Exploratory Factor Analysis"  
-date: '<br> `r Sys.Date()`'
+title: "SEM training using R"
+subtitle: "<br> Session 1: Exploratory Factor Analysis"  
+date: "`r format(Sys.time(),'%d %B %Y')`"
 output:
   xaringan::moon_reader:
     css:
@@ -43,11 +43,12 @@ library(xaringanthemer)
 style_duo_accent(
   primary_color = "#073b4c",
   secondary_color = "#2a9d8f",
-  inverse_background_color = "#FFFFFF",
-  inverse_header_color = "#073b4c",
-  title_slide_background_color = "#073b4c",
-  title_slide_text_color = "#FFF",
-  text_font_size = "1.2rem"
+  inverse_background_color = "#073b4c",
+  inverse_header_color = "#fff",
+  # title_slide_background_color = "#073b4c",
+  title_slide_background_image = "image/background.jpg",
+  title_slide_text_color = "#212529",
+  text_font_size = "1.1rem"
 )
 
 xaringanExtra::use_tile_view()
@@ -80,6 +81,7 @@ class: middle center
 
 # Factor analysis
 ----
+
 
 ---
 
@@ -500,21 +502,271 @@ print(fa_unrotated$loadings)
 
 ---
 ## Factor rotation
+
+.leftcol[
 #### Why do factor rotation?
++ To simplify the complexity of factor loadings.
++ Distribute the loadings more clearly into the factors.
++ Facilitate interpretation.
+]
+
+.rightcol[
+```{r echo=FALSE, out.width="80%"}
+knitr::include_graphics("image/factor_rotation.png")
+```
+]
+
+
+---
+
+## Factor rotation
+
+.leftcol30[
+.code40[
+```{r eval=FALSE}
+par(mfrow = c(1, 2))
+plot(fa_unrotated$loadings[,1], fa_unrotated$loadings[,2],
+     xlab = "Factor 1", ylab = "Factor 2",
+     ylim = c(-1, 1), xlim = c(-1, 1),
+     main = "No rotation",
+     pch = 19, col = "#6c757d") 
+     abline(h=0, v=0)
+     text(fa_unrotated$loadings[,1], fa_unrotated$loadings[,2],
+          labels = rownames(fa_unrotated$loadings),
+          pos = 4, cex = 0.5)
+
+plot(fa_rotated$loadings[,1], fa_rotated$loadings[,2],
+     xlab = "Factor 1", ylab = "Factor 2",
+     ylim = c(-1, 1), xlim = c(-1, 1),
+     main = "With rotation",
+     pch = 19, col = "#6c757d")
+     abline(h=0, v=0)
+     text(fa_rotated$loadings[,1], fa_rotated$loadings[,2],
+          labels = rownames(fa_unrotated$loadings),
+          pos = 4, cex = 0.5)
+```
+]]
+
+.rightcol70[
+```{r echo=FALSE, fig.dim="60%"}
+fa_rotated <- fa(r = data, nfactors = 4,rotate = "varimax")
+
+par(mfrow = c(1, 2))
+plot(fa_unrotated$loadings[,1],
+     fa_unrotated$loadings[,2],
+     xlab = "Factor 1",
+     ylab = "Factor 2",
+     ylim = c(-1, 1),
+     xlim = c(-1, 1),
+     main = "No rotation",
+     pch = 19,
+     col = "#6c757d") 
+     abline(h=0, v=0)
+     text(fa_unrotated$loadings[,1],
+          fa_unrotated$loadings[,2],
+          labels = rownames(fa_unrotated$loadings),
+          pos = 4, cex = 0.5)
+
+plot(fa_rotated$loadings[,1],
+     fa_rotated$loadings[,2],
+     xlab = "Factor 1",
+     ylab = "Factor 2",
+     ylim = c(-1, 1),
+     xlim = c(-1, 1),
+     main = "With rotation",
+     pch = 19,
+     col = "#6c757d")
+     abline(h=0, v=0)
+     text(fa_rotated$loadings[,1],
+          fa_rotated$loadings[,2],
+          labels = rownames(fa_unrotated$loadings),
+          pos = 4, cex = 0.5)
+
+```
+]
+
+---
+## Factor rotation
 
 
 
 
+---
+
+## Factor rotation
+
+.leftcol[
+#### Orthogonal rotation
++ axes are maintained at 90 degrees
++ orthogonal rotation methods
+  + Varimax - most commonly used
+  + Quartimax
+  + Equimax
++ Check-out some of these references
+  + [IBM](https://www.ibm.com/docs/de/spss-statistics/24.0.0?topic=analysis-factor-rotation)
+  + [Factor analysis](http://statweb.stanford.edu/~susan/courses/stats305c/examplesFA.html)
+  
+]
+
+.rightcol[
+```{r echo=FALSE, out.width="90%"}
+knitr::include_graphics("image/orthogonal.png")
+```
+
+]
+---
+## Factor rotation
+#### Orthogonal rotation
+
+```{r echo=FALSE}
+fa_varimax <- fa(r = data, nfactors = 4,rotate = "varimax")
+fa_quartimax <- fa(r = data, nfactors = 4,rotate = "quartimax")
+fa_equamax <- fa(r = data, nfactors = 4,rotate = "equamax")
+
+par(mfrow = c(1, 4))
+
+plot(fa_unrotated$loadings[,1],
+     fa_unrotated$loadings[,2],
+     xlab = "Factor 1",
+     ylab = "Factor 2",
+     ylim = c(-1, 1),
+     xlim = c(-1, 1),
+     main = "No rotation",
+     pch = 19,
+     col = "#6c757d") 
+     abline(h=0, v=0)
+     text(fa_unrotated$loadings[,1],
+          fa_unrotated$loadings[,2],
+          labels = rownames(fa_unrotated$loadings),
+          pos = 4, cex = 0.5)
+     
+plot(fa_varimax$loadings[,1],
+     fa_varimax$loadings[,2],
+     xlab = "Factor 1",
+     ylab = "Factor 2",
+     ylim = c(-1, 1),
+     xlim = c(-1, 1),
+     main = "Varimax",
+     pch = 19,
+     col = "#6c757d") 
+     abline(h=0, v=0)
+     text(fa_varimax$loadings[,1],
+          fa_varimax$loadings[,2],
+          labels = rownames(fa_varimax$loadings),
+          pos = 4, cex = 0.5)
+
+plot(fa_quartimax$loadings[,1],
+     fa_quartimax$loadings[,2],
+     xlab = "Factor 1",
+     ylab = "Factor 2",
+     ylim = c(-1, 1),
+     xlim = c(-1, 1),
+     main = "Quartimax",
+     pch = 19,
+     col = "#6c757d") 
+     abline(h=0, v=0)
+     text(fa_quartimax$loadings[,1],
+          fa_quartimax$loadings[,2],
+          labels = rownames(fa_quartimax$loadings),
+          pos = 4, cex = 0.5)
+     
+plot(fa_equamax$loadings[,1],
+     fa_equamax$loadings[,2],
+     xlab = "Factor 1",
+     ylab = "Factor 2",
+     ylim = c(-1, 1),
+     xlim = c(-1, 1),
+     main = "Equamax",
+     pch = 19,
+     col = "#6c757d") 
+     abline(h=0, v=0)
+     text(fa_equamax$loadings[,1],
+          fa_equamax$loadings[,2],
+          labels = rownames(fa_equamax$loadings),
+          pos = 4, cex = 0.5)
 
 
 
+```
 
 
+---
+
+## Factor rotation
+
+.leftcol[
+#### Oblique rotation rotation
++ allow correlated factors
++ suited to the goal of theoretically meaningful constracts
++ oblique rotation methods
+  + Promax
+  + Oblimin
++ Note: no specific rules in selecting a between rotation method.
+]
+
+.rightcol[
+```{r echo=FALSE, out.width="85%"}
+knitr::include_graphics("image/oblique.png")
+```
+]
+
+---
+## Factor rotation
+#### Oblique rotation
+
+```{r echo=FALSE}
+fa_promax <- fa(r = data, nfactors = 4,rotate = "promax")
+fa_oblimin <- fa(r = data, nfactors = 4,rotate = "oblimin")
 
 
+par(mfrow = c(1, 3))
 
+plot(fa_unrotated$loadings[,1],
+     fa_unrotated$loadings[,2],
+     xlab = "Factor 1",
+     ylab = "Factor 2",
+     ylim = c(-1, 1),
+     xlim = c(-1, 1),
+     main = "No rotation",
+     pch = 19,
+     col = "#6c757d") 
+     abline(h=0, v=0)
+     text(fa_unrotated$loadings[,1],
+          fa_unrotated$loadings[,2],
+          labels = rownames(fa_unrotated$loadings),
+          pos = 4, cex = 0.5)
+     
+plot(fa_promax$loadings[,1],
+     fa_promax$loadings[,2],
+     xlab = "Factor 1",
+     ylab = "Factor 2",
+     ylim = c(-1, 1),
+     xlim = c(-1, 1),
+     main = "Promax",
+     pch = 19,
+     col = "#6c757d") 
+     abline(h=0, v=0)
+     text(fa_promax$loadings[,1],
+          fa_promax$loadings[,2],
+          labels = rownames(fa_promax$loadings),
+          pos = 4, cex = 0.5)
 
-
+plot(fa_oblimin$loadings[,1],
+     fa_oblimin$loadings[,2],
+     xlab = "Factor 1",
+     ylab = "Factor 2",
+     ylim = c(-1, 1),
+     xlim = c(-1, 1),
+     main = "Oblimin",
+     pch = 19,
+     col = "#6c757d") 
+     abline(h=0, v=0)
+     text(fa_oblimin$loadings[,1],
+          fa_oblimin$loadings[,2],
+          labels = rownames(fa_oblimin$loadings),
+          pos = 4, cex = 0.5)
+     
+```
 
 
 

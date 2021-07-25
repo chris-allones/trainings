@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>SEM using R</title>
+    <title>SEM training using R</title>
     <meta charset="utf-8" />
     <meta name="date" content="2021-07-25" />
     <script src="efa_presentation_files/header-attrs/header-attrs.js"></script>
@@ -17,9 +17,9 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
-# SEM using R
-## Session 1: Exploratory Factor Analysis
-### <br> 2021-07-25
+# SEM training using R
+## <br> Session 1: Exploratory Factor Analysis
+### 25 July 2021
 
 ---
 
@@ -44,6 +44,7 @@ class: middle center
 
 # Factor analysis
 ----
+
 
 ---
 
@@ -204,7 +205,7 @@ KMO(data)
 
 ```
 
--- Kaiser-Meyer-Olkin criterion (KMO) --------------------------------------------------------------------------
+-- Kaiser-Meyer-Olkin criterion (KMO) ---------------------------------------------------------------------------------------
 
 ! The overall KMO value for your data is mediocre.
   These data are probably suitable for factor analysis.
@@ -506,21 +507,111 @@ Cumulative Var 0.292 0.495 0.631 0.693
 
 ---
 ## Factor rotation
+
+.leftcol[
 #### Why do factor rotation?
++ To simplify the complexity of factor loadings.
++ Distribute the loadings more clearly into the factors.
++ Facilitate interpretation.
+]
+
+.rightcol[
+&lt;img src="image/factor_rotation.png" width="80%" /&gt;
+]
+
+
+---
+
+## Factor rotation
+
+.leftcol30[
+.code40[
+
+```r
+par(mfrow = c(1, 2))
+plot(fa_unrotated$loadings[,1], fa_unrotated$loadings[,2],
+     xlab = "Factor 1", ylab = "Factor 2",
+     ylim = c(-1, 1), xlim = c(-1, 1),
+     main = "No rotation",
+     pch = 19, col = "#6c757d") 
+     abline(h=0, v=0)
+     text(fa_unrotated$loadings[,1], fa_unrotated$loadings[,2],
+          labels = rownames(fa_unrotated$loadings),
+          pos = 4, cex = 0.5)
+
+plot(fa_rotated$loadings[,1], fa_rotated$loadings[,2],
+     xlab = "Factor 1", ylab = "Factor 2",
+     ylim = c(-1, 1), xlim = c(-1, 1),
+     main = "With rotation",
+     pch = 19, col = "#6c757d")
+     abline(h=0, v=0)
+     text(fa_rotated$loadings[,1], fa_rotated$loadings[,2],
+          labels = rownames(fa_unrotated$loadings),
+          pos = 4, cex = 0.5)
+```
+]]
+
+.rightcol70[
+&lt;img src="efa_presentation_files/figure-html/unnamed-chunk-25-1.png" width="100%" /&gt;
+]
+
+---
+## Factor rotation
 
 
 
 
+---
+
+## Factor rotation
+
+.leftcol[
+#### Orthogonal rotation
++ axes are maintained at 90 degrees
++ orthogonal rotation methods
+  + Varimax - most commonly used
+  + Quartimax
+  + Equimax
++ Check-out some of these references
+  + [IBM](https://www.ibm.com/docs/de/spss-statistics/24.0.0?topic=analysis-factor-rotation)
+  + [Factor analysis](http://statweb.stanford.edu/~susan/courses/stats305c/examplesFA.html)
+  
+]
+
+.rightcol[
+&lt;img src="image/orthogonal.png" width="90%" /&gt;
+
+]
+---
+## Factor rotation
+#### Orthogonal rotation
+
+&lt;img src="efa_presentation_files/figure-html/unnamed-chunk-27-1.png" width="100%" /&gt;
 
 
+---
 
+## Factor rotation
 
+.leftcol[
+#### Oblique rotation rotation
++ allow correlated factors
++ suited to the goal of theoretically meaningful constracts
++ oblique rotation methods
+  + Promax
+  + Oblimin
++ Note: no specific rules in selecting a between rotation method.
+]
 
+.rightcol[
+&lt;img src="image/oblique.png" width="85%" /&gt;
+]
 
+---
+## Factor rotation
+#### Oblique rotation
 
-
-
-
+&lt;img src="efa_presentation_files/figure-html/unnamed-chunk-29-1.png" width="100%" /&gt;
 
 
 
