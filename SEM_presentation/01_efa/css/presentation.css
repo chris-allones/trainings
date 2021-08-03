@@ -265,3 +265,8 @@ a {
 .font70 {
   font-size: 70%;
 }
+
+.font80 {
+font-size: 80%;
+font-style: italic;
+}
