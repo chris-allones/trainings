@@ -5,9 +5,16 @@
     <meta charset="utf-8" />
     <meta name="date" content="2021-08-04" />
     <script src="efa_presentation_files/header-attrs/header-attrs.js"></script>
+    <script src="efa_presentation_files/clipboard/clipboard.min.js"></script>
+    <link href="efa_presentation_files/shareon/shareon.min.css" rel="stylesheet" />
+    <script src="efa_presentation_files/shareon/shareon.min.js"></script>
+    <link href="efa_presentation_files/xaringanExtra-shareagain/shareagain.css" rel="stylesheet" />
+    <script src="efa_presentation_files/xaringanExtra-shareagain/shareagain.js"></script>
     <link href="efa_presentation_files/tile-view/tile-view.css" rel="stylesheet" />
     <script src="efa_presentation_files/tile-view/tile-view.js"></script>
     <link href="efa_presentation_files/xaringanExtra-extra-styles/xaringanExtra-extra-styles.css" rel="stylesheet" />
+    <link href="efa_presentation_files/animate.css/animate.xaringan.css" rel="stylesheet" />
+    <link href="efa_presentation_files/animate.css-xaringan/animate.fade.css" rel="stylesheet" />
     <link href="efa_presentation_files/pagedtable/css/pagedtable.css" rel="stylesheet" />
     <script src="efa_presentation_files/pagedtable/js/pagedtable.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
@@ -28,7 +35,13 @@ layout: true
 
 
 
-
+<style>.shareagain-bar {
+--shareagain-foreground: rgb(255, 255, 255);
+--shareagain-background: rgba(0, 0, 0, 0.5);
+--shareagain-pinterest: none;
+--shareagain-pocket: none;
+--shareagain-reddit: none;
+}</style>
 
 
 
@@ -66,6 +79,8 @@ class: middle center
 
 ## Types of factor analysis
 
+--
+
 .leftcol[
 #### Exploratory factor analysis
 
@@ -90,6 +105,8 @@ class: middle center
 
 ## Types of factor analysis
 
+--
+
 .left-column-50[
 #### Exploratory factor analysis
 
@@ -100,12 +117,14 @@ class: middle center
 &lt;br&gt;
 
 .right-column-50[
-&lt;img src="image/efa_interpret.png" width="50%" /&gt;
+&lt;img src="image/efa_interpret.png" width="50%" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
 
 ## Types of factor analysis
+
+--
 
 .left-column-50[
 #### Confirmatory factor analysis
@@ -117,7 +136,7 @@ class: middle center
 &lt;br&gt;
 
 .right-column-50[
-&lt;img src="image/cfa_interpret.png" width="50%" /&gt;
+&lt;img src="image/cfa_interpret.png" width="50%" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -130,11 +149,19 @@ class: middle center
 
 ## Variable selection and measurement issues
 
-1. What types of variables can be used in factor analysis?
+--
+What types of variables can be used in factor analysis?
+
+--
   + *Primary requirement: a correlation value can be calculated among all variables.*
   + *e.g., metric variables, scale items, dummy variables to represent nonmetric variables.*
 
-2. How many variables should be included?
+&lt;br&gt;
+--
+
+How many variables should be included?
+
+--
   + *Five or more per factor for scale development.*
   + *Three or more per factor for factor measurement (based on how degrees of freedom is computed).*
   
@@ -142,14 +169,20 @@ class: middle center
 
 ## Sample size
 
+--
+
 Some recommended guidelines:
 
-1. absolute size of the dataset
+--
+
+Absolute size of the dataset
   + *should not fewer than 50 observation*
   + *preferably 100 and larger*
   + *200 and larger as the number of variables and expected factors incerases*
   
-2. ratio of cases to variables
+--
+
+Ratio of cases to variables
   + *observation is 5x as the number of variables*
   + *sample size is 10:1 ratio*
   + *some proposes 20 cases per variables*
@@ -162,17 +195,45 @@ class: middle center
 
 ---
 
-## How many dimensions do you have?
+## Sample Dataset
 
-&lt;br&gt;
-&lt;img src="image/dimension_reduction.gif" width="50%" style="display: block; margin: auto;" /&gt;
+--
+
+.leftcol40[
+
++ HBAT Industries, manufacturer of paper products.
++ Perceptions on a set of business functions.
++ Rating scale: 
+  + `0 "poor"` to `10 "excellent"`
+]
+
+.rightcol60[
+&lt;img src="image/hbat_data.png" width="80%" style="display: block; margin: auto;" /&gt;
+]
+
 
 ---
 
-## Dataset
+## Sample Dataset
+
+--
 
 .leftcol40[
-(Info here!)
+
++ `\(X_6\)` product quality
++ `\(X_7\)` e-commerce
++ `\(X_8\)` technical support
++ `\(X_9\)` complaint resolution
++ `\(X_{10}\)` advertising
++ `\(X_{11}\)` product line
++ `\(X_{12}\)` salesforce image
++ `\(X_{13}\)` competitive pricing
++ `\(X_{14}\)` warranty claims
++ `\(X_{15}\)` packaging
++ `\(X_{16}\)` order &amp; billing
++ `\(X_{17}\)` price flexibility
++ `\(X_{18}\)` delivery speed
+
 ]
 
 .rightcol60[
@@ -190,28 +251,47 @@ class: middle center
 
 ---
 
-## Overall measures of intercorrelation
+## Conceptual assumptions
+
+--
+
++ Some uderlying structure does exist in the set of selected variables.
++ correlated variables and subsequent definition of factors do not guarantee relevance
+  + *even if they meet the statistical requirement!*
++ It is the responsibility of the researcher to ensure that observed patterns are conceptually valid and appropriate.
+
+---
+
+## Determining appropriateness of EFA
+
+--
 
 1. Bartlett Test
+
 2. Measure of Sampling Adequacy
 
 ---
 
-## Overall measures of intercorrelation
+## Determining the appropriateness of EFA
+
+--
 
 .leftcol[
 #### 1. Bartlett Test
 + Examines the entire correlation matrix
 + Test the hypothesis that correlation matrix is an identity matrix.
-+ A significant reulst signifies data are appropriate for FA
++ A significant result signifies data are appropriate for factor analysis.
 ]
 
 --
 .rightcol[
 
+
 ```r
-BARTLETT(data, N= nrow(data))
+library(EFAtools)
+BARTLETT(data, N = 100)
 ```
+
 
 ```
 
@@ -224,7 +304,9 @@ v The Bartlett's test of sphericity was significant at an alpha level of .05.
 
 ---
 
-## Overall measures of intercorrelation
+## Determining the appropriateness of EFA
+
+--
 
 #### 2. Kaiser-Meyen-Olkin (KMO Test)
 + Measure of sampling adequacy
@@ -239,7 +321,9 @@ v The Bartlett's test of sphericity was significant at an alpha level of .05.
 
 
 ---
-## Overall measures of intercorrelation
+## Determining the appropriateness of EFA
+
+--
 
 #### 2. Kaiser-Meyen-Olkin (KMO Test)
 --
@@ -253,7 +337,7 @@ KMO(data)
 
 ```
 
--- Kaiser-Meyer-Olkin criterion (KMO) ------------------------------------------------------------------------------
+-- Kaiser-Meyer-Olkin criterion (KMO) ------------------------------------------
 
 ! The overall KMO value for your data is mediocre.
   These data are probably suitable for factor analysis.
@@ -266,7 +350,9 @@ KMO(data)
 ```
 ]
 ---
-## Overall measures of intercorrelation
+## Determining the appropriateness of EFA
+
+--
 
 #### 2. Kaiser-Meyen-Olkin (KMO Test)
 
@@ -279,28 +365,6 @@ KMO(data)
 
 + Deletion of variables with MSA under 0.50 means variable's correlation with &lt;br&gt;other variables are poorly representing the extracted factor.
 
----
-## Overall measures of intercorrelation
-
-#### 2. Kaiser-Meyen-Olkin (KMO Test)
---
-
-.leftcol40[
-
-```r
-# Deselecting X15
-data_deselect &lt;- data %&gt;% 
-  select(-x15, -x17)
-
-KMO(data_deselect)
-```
-]
-
-.rightcol60[
-
-]
-
-
 
 ---
 class: middle center
@@ -310,11 +374,14 @@ class: middle center
 ---
 class: middle center
 
-# Selecting factor extraction method
+# Stage 4: Deriving factors and &lt;br&gt;assessing overall fit
 ----
 
 ---
+
 ## Partitioning the variance of a variable
+
+--
 
 .leftcol[
 #### Unique variance
@@ -337,6 +404,8 @@ class: middle center
 
 ## Partitioning the variance of a variable
 
+--
+
 .center[
 &lt;img src="image/deriving_factors.png" width="55%" /&gt;
 
@@ -346,6 +415,8 @@ class: middle center
 ---
 
 ## PCA vs Common factor analysis
+
+--
 
 .leftcol[
 #### Principal component analysis (PCA)
@@ -370,7 +441,9 @@ class: middle center
 
 ---
 
-### Exploring possible factor
+## Exploring possible factors
+
+--
 
 .leftcol40[
 #### 1. Kaiser-Guttman Criterion
@@ -398,6 +471,8 @@ KGC(Data, eigen_type = "EFA")
 
 ## Exploring possible factors
 
+--
+
 .leftcol40[
 #### 2. Scree test
 + Identify the optimum number of factors that can be extracted before the amount of unique variance begins to dominate the common variance.
@@ -422,6 +497,8 @@ scree(data)
 ---
 
 ## Exploring possible factors
+
+--
 
 .leftcol[
 #### 3. Parallel Test
@@ -453,8 +530,16 @@ class: middle center
 # Let's practice!
 
 ---
+class: middle center
+
+# Stage 5: Interpreting the factors
+----
+
+---
 
 ## Three process of factor intepretation
+
+--
 
 #### 1. Factor extraction
 #### 2. Factor rotation
@@ -505,7 +590,10 @@ Cumulative Var 0.292 0.495 0.631 0.693
 ]
 
 ---
+
 ## Factor extraction
+
+--
 
 .rightcol[
 .code30[
@@ -554,7 +642,10 @@ Cumulative Var 0.292 0.495 0.631 0.693
 ]
 
 ---
+
 ## Factor rotation
+
+--
 
 .leftcol[
 #### Why do factor rotation?
@@ -572,10 +663,12 @@ Cumulative Var 0.292 0.495 0.631 0.693
 
 ## Factor rotation
 
-.leftcol30[
-.code40[
+--
 
-```r
+
+.leftcol35[
+.code30[
+```{}
 par(mfrow = c(1, 2))
 plot(fa_unrotated$loadings[,1], fa_unrotated$loadings[,2],
      xlab = "Factor 1", ylab = "Factor 2",
@@ -597,27 +690,26 @@ plot(fa_rotated$loadings[,1], fa_rotated$loadings[,2],
           labels = rownames(fa_unrotated$loadings),
           pos = 4, cex = 0.5)
 ```
-]]
+]
+]
 
-.rightcol70[
-&lt;img src="efa_presentation_files/figure-html/unnamed-chunk-25-1.png" width="100%" /&gt;
+
+.rightcol65[
+&lt;img src="efa_presentation_files/figure-html/unnamed-chunk-23-1.png" width="100%" /&gt;
 ]
 
 ---
-## Factor rotation
-
-
-
-
----
 
 ## Factor rotation
+
+--
 
 .leftcol[
 #### Orthogonal rotation
+
 + axes are maintained at 90 degrees
 + orthogonal rotation methods
-  + Varimax - most commonly used
+  + Varimax - *most commonly used*
   + Quartimax
   + Equimax
 + Check-out some of these references
@@ -631,15 +723,21 @@ plot(fa_rotated$loadings[,1], fa_rotated$loadings[,2],
 
 ]
 ---
+
 ## Factor rotation
+
+--
+
 #### Orthogonal rotation
 
-&lt;img src="efa_presentation_files/figure-html/unnamed-chunk-27-1.png" width="100%" /&gt;
+&lt;img src="efa_presentation_files/figure-html/unnamed-chunk-25-1.png" width="100%" /&gt;
 
 
 ---
 
 ## Factor rotation
+
+--
 
 .leftcol[
 #### Oblique rotation rotation
@@ -656,10 +754,13 @@ plot(fa_rotated$loadings[,1], fa_rotated$loadings[,2],
 ]
 
 ---
+
 ## Factor rotation
+
+--
 #### Oblique rotation
 
-&lt;img src="efa_presentation_files/figure-html/unnamed-chunk-29-1.png" width="100%" /&gt;
+&lt;img src="efa_presentation_files/figure-html/unnamed-chunk-27-1.png" width="100%" /&gt;
 
 ---
 class: middle center
@@ -668,11 +769,154 @@ class: middle center
 
 ---
 
+## Factor interpretation and respecification
 
+--
 
+.leftcol40[
 
++ each variable has a high loadings on one factor only
++  each factor has a high loadings  for only a subset of the items.
+]
 
+.rightcol60[
+.code40[
 
+```r
+fa_varimax &lt;- fa(r = data, nfactors = 4, rotate = "varimax")
+print(fa_varimax$loadings, sort = TRUE)
+```
+
+```
+
+Loadings:
+    MR1    MR2    MR3    MR4   
+x9   0.897  0.130         0.132
+x16  0.768  0.127              
+x18  0.949  0.185              
+x7          0.781        -0.115
+x10  0.166  0.529              
+x12  0.114  0.980        -0.133
+x8                 0.890  0.115
+x14  0.103         0.879  0.129
+x6                        0.647
+x11  0.525         0.127  0.712
+x13         0.213 -0.209 -0.590
+
+                 MR1   MR2   MR3   MR4
+SS loadings    2.635 1.973 1.641 1.371
+Proportion Var 0.240 0.179 0.149 0.125
+Cumulative Var 0.240 0.419 0.568 0.693
+```
+]
+]
+
+---
+
+## Factor interpretation and respecification
+
+--
+
+.leftcol40[
+
++ each variable has a high loadings on one factor only
++  each factor has a high loadings  for only a subset of the items.
+]
+
+.rightcol60[
+
+.code40[
+
+```r
+fa_varimax &lt;- fa(r = data, nfactors = 4, rotate = "varimax")
+print(fa_varimax$loadings, sort = TRUE, cutoff = 0.4)
+```
+
+```
+
+Loadings:
+    MR1    MR2    MR3    MR4   
+x9   0.897                     
+x16  0.768                     
+x18  0.949                     
+x7          0.781              
+x10         0.529              
+x12         0.980              
+x8                 0.890       
+x14                0.879       
+x6                        0.647
+x11  0.525                0.712
+x13                      -0.590
+
+                 MR1   MR2   MR3   MR4
+SS loadings    2.635 1.973 1.641 1.371
+Proportion Var 0.240 0.179 0.149 0.125
+Cumulative Var 0.240 0.419 0.568 0.693
+```
+]
+]
+
+---
+
+## Factor interpretation and respecification
+
+--
+
+.leftcol40[
+
+What to do with cross-loadings?
+
+Ratio of variance (*JF Hair et al. 2019*)
+
++ 1 to 1.5 - problematic
++ 1.5 to 2.0 - potential cross-loading
++ 2.0 and higher - ignorable
+
+Example:
+
++ `\(X_{11}\)`
++ `MR1`: 0.525
++ `MR2`: 0.712
++ `\(0.712^2 \div 0.525^2 = 1.8\)`
+]
+
+.rightcol60[
+
+.code40[
+
+```r
+fa_varimax &lt;- fa(r = data, nfactors = 4, rotate = "varimax")
+print(fa_varimax$loadings, sort = TRUE, cutoff = 0.4)
+```
+
+```
+
+Loadings:
+    MR1    MR2    MR3    MR4   
+x9   0.897                     
+x16  0.768                     
+x18  0.949                     
+x7          0.781              
+x10         0.529              
+x12         0.980              
+x8                 0.890       
+x14                0.879       
+x6                        0.647
+x11  0.525                0.712
+x13                      -0.590
+
+                 MR1   MR2   MR3   MR4
+SS loadings    2.635 1.973 1.641 1.371
+Proportion Var 0.240 0.179 0.149 0.125
+Cumulative Var 0.240 0.419 0.568 0.693
+```
+]
+]
+
+---
+class: middle center
+
+# Let's practice!
 
 
     </textarea>

@@ -47,11 +47,12 @@ pre {
 /*--- CODE  FONT SIZE---*/
 
 .code30 {
- font-size: 30%;
+ font-size: 5px;
+ width: 90%;
 }
 
 .code40 {
- font-size: 40%;
+ font-size: 3px;
 }
 
 .code50 {
