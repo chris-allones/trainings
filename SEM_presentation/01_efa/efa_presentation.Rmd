@@ -1004,3 +1004,36 @@ class: middle center
 # Let's practice!
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

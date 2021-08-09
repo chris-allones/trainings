@@ -3,7 +3,7 @@
   <head>
     <title>SEM training using R</title>
     <meta charset="utf-8" />
-    <meta name="date" content="2021-08-09" />
+    <meta name="date" content="2021-08-10" />
     <script src="cfa_sem_presentation_files/header-attrs/header-attrs.js"></script>
     <script src="cfa_sem_presentation_files/clipboard/clipboard.min.js"></script>
     <link href="cfa_sem_presentation_files/shareon/shareon.min.css" rel="stylesheet" />
@@ -26,7 +26,7 @@ class: center, middle, inverse, title-slide
 
 # SEM training using R
 ## <br> Session 2: CFA and SEM
-### 09 August 2021
+### 10 August 2021
 
 ---
 
@@ -488,6 +488,15 @@ class: center middle
 ## Step  3: Assessing measurement model validity
 
 .leftcol40[
+#### Basic principle
+
++ Compare covariance matrix of the research data `\(\text{S}\)` and reproduced covariance `\(\Sigma\)`
+
++ Hypothesis:
+  + Null: `\(\text{S} = \Sigma\)`
+  + Atternative: `\(\text{S} \ne \Sigma\)`
+
++ Idea is to arrived with a parameter that minimizes the difference of `\(\text{S}\)` and  `\(\Sigma\)`
 
 ]
 
@@ -601,13 +610,39 @@ Variances:
 ]
 ]
 
+---
 
+## Step 3: Assessing measurement model validity
 
+.leftcol40[
+#### Basic principle
 
++ Compare covariance matrix of the research data `\(\text{S}\)` and reproduced covariance `\(\Sigma\)`
 
++ Hypothesis:
+  + Null: `\(\text{S} = \Sigma\)`
+  + Atternative: `\(\text{S} \ne \Sigma\)`
 
++ Idea is to arrived with a parameter that minimizes the difference of `\(\text{S}\)` and  `\(\Sigma\)`
 
+]
 
+.rightcol60[
+&lt;img src="img/confuse.gif" width="60%" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+## Step 3: Assessing measurement model validity
+
+.leftcol40[
+&lt;img src="img/ols_sem_sample.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+]
+
+.rightcol60[
+&lt;img src="img/ols_calc.png" width="80%" style="display: block; margin: auto 0 auto auto;" /&gt;
+]
 
 
     </textarea>
