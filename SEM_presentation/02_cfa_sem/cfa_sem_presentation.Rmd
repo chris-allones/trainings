@@ -507,6 +507,12 @@ knitr::include_graphics("img/confuse.gif")
 ## Step 3: Assessing measurement model validity
 
 .leftcol40[
+#### Basic principle
+
++ To understand the SEM process, consider the Table on the right.
+
++ Iterative procedure using least square method.
+
 ```{r echo=FALSE, fig.align='center', out.width="80%"}
 knitr::include_graphics("img/ols_sem_sample.png")
 ```
@@ -518,5 +524,73 @@ knitr::include_graphics("img/ols_sem_sample.png")
 knitr::include_graphics("img/ols_calc.png")
 ```
 ]
+
+---
+
+## Step 3: Assessing measurement model validity
+
+.leftcol20[
+#### Summary output
++ Overall results
+
++ Loadings
+
++ Variances
+
+]
+
+.rightcol80[
+```{r eval=FALSE}
+cfa_fit <- cfa(cfa_model, data = hbat_data)
+summary(cfa_fit)
+```
+.code-output-scroll[
+```{r echo=FALSE}
+cfa_fit <- cfa(cfa_model, data = hbat_data)
+summary(cfa_fit)
+```
+]
+]
+
+---
+
+## Step 3: Assessing measurement model validity
+
+.leftcol20[
+#### Summary output
++ Overall results
+
++ Loadings
+
++ Variances
+
+]
+
+.rightcol80[
+```{r eval=FALSE}
+cfa_fit <- cfa(cfa_model, data = hbat_data)
+summary(cfa_fit, standardized = TRUE)
+```
+.code-output-scroll[
+```{r echo=FALSE}
+cfa_fit <- cfa(cfa_model, data = hbat_data)
+summary(cfa_fit, standardized = TRUE)
+```
+]
+]
+
+---
+
+
+
+
+
+
+
+
+
+
+
+
 
 
