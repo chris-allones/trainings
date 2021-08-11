@@ -364,6 +364,12 @@ class: middle center
 5. Assessing structural model validity
 
 ---
+class: center middle
+
+# 1. Defining Constructs
+----
+
+---
 
 ## Dataset
 
@@ -381,7 +387,7 @@ rmarkdown::paged_table(hbat_data)
 
 ---
 
-## Step 1: Defining individual constructs
+## Defining individual constructs
 
 + Based on literature and preliminary interviews, a study was designed focusing on five key constructs.
 
@@ -397,7 +403,7 @@ rmarkdown::paged_table(hbat_data)
 
 ---
 
-## Step 1: Defining individual constructs
+## Defining individual constructs
 
 .leftcol[
 ```{r echo=FALSE, fig.align='right'}
@@ -412,9 +418,16 @@ knitr::include_graphics("img/scale2.png")
 .font70[*Source: JF Hair et al. (2019) : Multivariate data analysis*]
 ]
 
+
+---
+class: center middle
+
+# Step 2. Developing overall measurement model
+----
+
 ---
 
-## Step 2: Developing overall measurement model
+## Developing overall measurement model
 
 .leftcol30[
 + Measurement theory model (CFA) for HBAT employees
@@ -440,13 +453,18 @@ class: center middle
 
 # Let's practice!
 
+
+---
+class: center middle
+
+# Step 3. Assessing measurement model validity
+----
+
 ---
 
-## Step  3: Assessing measurement model validity
+## Basic principles
 
 .leftcol40[
-#### Basic principle
-
 + Compare covariance matrix of the research data $\text{S}$ and reproduced covariance $\Sigma$
 
 + Hypothesis:
@@ -481,11 +499,9 @@ cfa_fit %>% summary()
 
 ---
 
-## Step 3: Assessing measurement model validity
+## Basic principles
 
 .leftcol40[
-#### Basic principle
-
 + Compare covariance matrix of the research data $\text{S}$ and reproduced covariance $\Sigma$
 
 + Hypothesis:
@@ -504,10 +520,9 @@ knitr::include_graphics("img/confuse.gif")
 
 ---
 
-## Step 3: Assessing measurement model validity
+## Basic principles
 
 .leftcol40[
-#### Basic principle
 
 + To understand the SEM process, consider the Table on the right.
 
@@ -527,10 +542,10 @@ knitr::include_graphics("img/ols_calc.png")
 
 ---
 
-## Step 3: Assessing measurement model validity
+## Summary output
 
 .leftcol20[
-#### Summary output
+
 + Overall results
 
 + Loadings
@@ -554,16 +569,41 @@ summary(cfa_fit)
 
 ---
 
-## Step 3: Assessing measurement model validity
+## Summary output
+
+.leftcol40[
+#### Overall results
+
+$df = \frac{1}{2} p (p + 1) - k$
+
+$p$ = total observed variables
+
+$k$ = total estimated parameters
+
+Resulting $df$ for a three-item factor would be zero.
+]
+
+.rightcol60[
+```{r eval=FALSE}
+cfa_fit <- cfa(cfa_model, data = hbat_data)
+summary(cfa_fit)
+```
+.code-output-scroll[
+```{r echo=FALSE}
+cfa_fit <- cfa(cfa_model, data = hbat_data)
+summary(cfa_fit)
+```
+]
+]
+
+---
+
+## Summary output
 
 .leftcol20[
-#### Summary output
-+ Overall results
+#### Loadings
 
-+ Loadings
-
-+ Variances
-
+-strength of the relationship of the items to the factor.
 ]
 
 .rightcol80[
@@ -580,6 +620,151 @@ summary(cfa_fit, standardized = TRUE)
 ]
 
 ---
+
+## Summary output
+
+.leftcol20[
+#### Variances
+
+Refer to unique variance that the factor unable to account for. Similar to error term in OLS, hence it is also term as error variance.
+]
+
+.rightcol80[
+```{r eval=FALSE}
+cfa_fit <- cfa(cfa_model, data = hbat_data)
+summary(cfa_fit, standardized = TRUE)
+```
+.code-output-scroll[
+```{r echo=FALSE}
+cfa_fit <- cfa(cfa_model, data = hbat_data)
+summary(cfa_fit, standardized = TRUE)
+```
+]
+]
+
+---
+
+## Fit indices
+
+.leftcol40[
+#### Goodness of fit indices
+
++ Goodness-of-fit index (GFI)
++ Adjusted goodness-fit-index (AGFI)
++ Comparative fit index (CFI)
++ Normed fit index (NFI)
++ Non-normed fit index (NNF)
+
+#### Badness of fit indices
+
++ Standard root mean squrare residual (SRMR)
++ Root mean square error of approximation (RMSEA)
+]
+
+
+.rightcol60[
+```{r echo=FALSE, out.width="80%", fig.align='center'}
+knitr::include_graphics("img/sample_gof.png")
+```
+
+.font70[*Sample GOF results from W. Shiau & M. Luo (2013). Continuance intention of blog users: The impact of perceived enjoyment, habit, user involvement and blogging time.*]
+]
+
+---
+
+## Fit indices
+
+.leftcol40[
+#### Goodness of fit indices
+
++ Goodness-of-fit index (GFI)
++ Adjusted goodness-fit-index (AGFI)
++ Comparative fit index (CFI)
++ Normed fit index (NFI)
++ Non-normed fit index (NNF)
+]
+
+.rightcol60[
+```{r}
+fitMeasures(cfa_fit)
+```
+]
+
+---
+
+## Fit indices
+
+.leftcol40[
+#### Goodness of fit indices
+
++ Goodness-of-fit index (GFI)
++ Adjusted goodness-fit-index (AGFI)
++ Comparative fit index (CFI)
++ Normed fit index (NFI)
++ Non-normed fit index (NNF)
+]
+
+.rightcol60[
+```{r}
+fitMeasures(cfa_fit,  fit.measures = c("gfi", "agfi", "cfi", "nfi", "nnfi"))
+```
+]
+
+---
+
+## Fit indices
+
+.leftcol40[
+#### Badness of fit indices
+
++ Standard root mean squrare residual (SRMR)
++ Root mean square error of approximation (RMSEA)
+]
+
+.rightcol60[
+```{r}
+fitMeasures(cfa_fit,  fit.measures = c("srmr", "rmsea"))
+```
+]
+
+---
+class: middle center
+
+# Let's practice
+
+---
+
+## Reliability and validity test
+
+.leftcol30[
+#### Reliability test
++ Composite reliability
+
+#### Validity test
++  Discriminant validity
+]
+
+.rightcol70[
+```{r echo=FALSE, out.width="95%"}
+knitr::include_graphics("img/reliability_validity.png")
+```
+
+.font70[*Source: A. Hou, W. Shiau, & R. Shang (2019). The involvement paradox. The role of cognitive absorption in mobile instant messaging user satisfaction.*]
+]
+
+
+---
+
+
+
+
+
+
+
+
+
+
+
 
 
 
