@@ -46,7 +46,7 @@ Main Steps in SEM
     - Notes on proceeding from CFA to structural
     - Highlight the differences in CFA to SEM (through a diagram)
     - Defining structural theory
-	- Hypotheized relationship of the factors
+	- Hypothesized relationship of the factors
     - Illustrate how to do path diagram using semPaths()
 (Let's practice)
 

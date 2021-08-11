@@ -1,7 +1,8 @@
 ---
-title: "SEM training using R"
-subtitle: "<br> Session 2: CFA and SEM"  
-date: "`r format(Sys.time(),'%d %B %Y')`"
+title: "Structural Equation Modeling (SEM)<br> using R"
+subtitle: 
+  - "<br> Session 2: CFA and SEM<br>"
+  - "<br>23 August 2021"  
 output:
   xaringan::moon_reader:
     css:
@@ -88,13 +89,15 @@ hbat_data <- haven::read_sav("data/HBAT_SEM_NOMISSING.sav") %>%
 
 **2**: CFA-SEM with Lavaan
 
-**3**: Main steps in SEM
+**3**: Defining  constructs
 
-**4**: Assessing measurement model validity
+**4**: Developing the overall measurement model
 
-**5**: Specifying the structural model
+**5**: Assessing measurement model validity
 
-**6**: Assessing the structural model validity
+**6**: Specifying the structural model
+
+**7**: Assessing structural model validity
 
 ---
 
@@ -165,6 +168,7 @@ knitr::include_graphics("img/structural_part_2.jpg")
 ## Basic SEM conventions
 
 <br>
+
 .center[
 ```{r echo=FALSE, out.width="70%"}
 knitr::include_graphics("img/sem_convention_2.jpg")
@@ -184,6 +188,8 @@ class: middle center
 
 .leftcol30[
 + *"developed to provide useRs, researchers, and teachers a free open-source, but commercial quality"*, Yves Rosseel (2012)
+
++ Check-out their [lavaan tutorial](https://lavaan.ugent.be/tutorial/index.html)
 ]
 
 .rightcol70[
@@ -364,6 +370,7 @@ class: middle center
 5. Assessing structural model validity
 
 ---
+
 class: center middle
 
 # 1. Defining Constructs
@@ -753,7 +760,6 @@ knitr::include_graphics("img/reliability_validity.png")
 .font70[*Source: A. Hou, W. Shiau, & R. Shang (2019). The involvement paradox. The role of cognitive absorption in mobile instant messaging user satisfaction.*]
 ]
 
-
 ---
 
 ## Reliability and validity test
@@ -780,6 +786,7 @@ semTools::reliability(cfa_fit) %>% round(3)
 ]
 
 ---
+
 class: center middle
 
 # Step 4: Specifying the structural model
@@ -815,6 +822,7 @@ knitr::include_graphics("img/structural_model.png")
 
 
 ---
+
 class: center middle
 
 # Let's practice
@@ -824,6 +832,21 @@ class: center middle
 ## Defining structural model
 
 .leftcol30[
+
+```{r echo=FALSE}
+sem_model <- "SI =~ SI1 + SI2 + SI3 + SI4
+              JS =~ JS1 + JS2 + JS3 + JS4 + JS5
+              AC =~ AC1 + AC2 + AC3 + AC4
+              EP =~ EP1 + EP2 + EP3 + EP4
+              OC =~ OC1 + OC2 + OC3 + OC4
+              EP ~~ AC
+              JS ~ H1*EP + H3*AC
+              OC ~ H2*EP + H4*AC + H5*JS
+              SI ~ H6*JS + H7*OC"
+
+sem_fit <- sem(model = sem_model, data = hbat_data)
+```
+
 ```{r eval=FALSE}
 library(semPlot)
 semPaths(object = sem_fit,
@@ -848,8 +871,57 @@ knitr::include_graphics("img/sempath2.svg")
 knitr::include_graphics("img/structural_result.svg")
 ```
 
+---
 
+## GOF measures between structural and CFA model
 
+.leftcol40[
+```{r eval=FALSE}
+gof_indices <- c('chisq', 'df','pvalue', "gfi", 
+                 'rmsea', 'rmr', 'srmr', 'nfi', 
+                 'nnfi', 'cfi', 'agfi')
+fitmeasures(sem_fit, fit.measures = gof_indices)
+fitmeasures(cfa_fit, fit.measures = gof_indices)
+```
+
+```{r echo=FALSE}
+gof_indices <- c('chisq', 'df','pvalue', "gfi", 
+                 'rmsea', 'rmr', 'srmr', 'nfi', 
+                 'nnfi', 'cfi', 'agfi')
+fitmeasures(sem_fit, fit.measures = gof_indices)
+fitmeasures(cfa_fit, fit.measures = gof_indices)
+```
+]
+
+.rightcol60[
+```{r echo=FALSE, out.width="90%", fig.align='right'}
+knitr::include_graphics("img/fit_indices.png")
+```
+]
+
+---
+
+## What's next?
+
+.leftcol40[
++ Modification indeces
+
++ Handling heywood cases
+
++ Comparing competing models
+
++ Formative scales in SEM
+
++ Higher-order factor analysis
+
++ Multigroup analysis
+]
+
+.rightcol60[
+```{r echo=FALSE, out.width="70%", fig.align='center'}
+knitr::include_graphics("img/we_can.gif")
+```
+]
 
 
 
