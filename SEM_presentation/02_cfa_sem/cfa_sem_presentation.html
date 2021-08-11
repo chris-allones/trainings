@@ -1270,7 +1270,8 @@ class: middle center
 + Composite reliability
 
 #### Validity test
-+  Discriminant validity
++ Convergent validity
++ Discriminant validity
 ]
 
 .rightcol70[
@@ -1282,20 +1283,97 @@ class: middle center
 
 ---
 
+## Reliability and validity test
+
+.leftcol[
++ Composite reliability: `alpha` &gt; `0.70`
+
++ Convergent validity: AVE (`avevar`) &gt; `0.50`
+
++ Discriminant validity: `omega` &gt; `0.7`
+]
 
 
+.rightcol[
+
+```r
+library(semTools)
+reliability(cfa_fit) %&gt;% round(3)
+```
 
 
+```
+          SI    JS    AC    EP    OC
+alpha  0.886 0.281 0.891 0.847 0.823
+omega  0.887 0.640 0.893 0.850 0.827
+omega2 0.887 0.640 0.893 0.850 0.827
+omega3 0.887 0.641 0.893 0.850 0.818
+avevar 0.664 0.535 0.677 0.587 0.552
+```
+
+]
+
+---
+class: center middle
+
+# Step 4: Specifying the structural model
+----
+
+---
+## CFA model to structural model
+&lt;img src="img/cfa_sem.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Defining structural model
+
+#### Hypothesis:
+
++ H1: Environmental perceptions are positively related to job satisfaction.
++ H2: Environemtnal perceptions are positively related to organizational commitment.
++ H3: Attitudes toward coworkers are positively related to job satisfaction.
++ H4: Attitudes toward coworkers are positively related to organizational commitment.
++ H5: Job satisfaction is related positively to organizational commitment.
++ H6: Job satisfaction is related  positively to staying intentions.
++ H7: Organizational commitment is related positively to staying intention.
+
+---
+
+## Defining structural model
+
+&lt;img src="img/structural_model.png" width="60%" style="display: block; margin: auto;" /&gt;
 
 
+---
+class: center middle
 
+# Let's practice
 
+---
 
+## Defining structural model
 
+.leftcol30[
 
+```r
+library(semPlot)
+semPaths(object = sem_fit,
+         what = "std",
+         layout = "tree2",
+         intercepts = FALSE,
+         residuals = FALSE)
+```
+]
 
+.rightcol70[
+&lt;img src="img/sempath2.svg" width="180%" style="display: block; margin: auto;" /&gt;
+]
 
+---
 
+## Defining structural model
+
+&lt;img src="img/structural_result.svg" width="70%" style="display: block; margin: auto;" /&gt;
 
 
 

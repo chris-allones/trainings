@@ -741,7 +741,8 @@ class: middle center
 + Composite reliability
 
 #### Validity test
-+  Discriminant validity
++ Convergent validity
++ Discriminant validity
 ]
 
 .rightcol70[
@@ -755,20 +756,97 @@ knitr::include_graphics("img/reliability_validity.png")
 
 ---
 
+## Reliability and validity test
+
+.leftcol[
++ Composite reliability: `alpha` > `0.70`
+
++ Convergent validity: AVE (`avevar`) > `0.50`
+
++ Discriminant validity: `omega` > `0.7`
+]
 
 
+.rightcol[
+```{r eval=FALSE}
+library(semTools)
+reliability(cfa_fit) %>% round(3)
+```
+
+```{r echo=FALSE}
+semTools::reliability(cfa_fit) %>% round(3)
+```
+
+]
+
+---
+class: center middle
+
+# Step 4: Specifying the structural model
+----
+
+---
+## CFA model to structural model
+```{r echo=FALSE, out.width="60%", fig.align='center'}
+knitr::include_graphics("img/cfa_sem.png")
+```
+
+---
+
+## Defining structural model
+
+#### Hypothesis:
+
++ H1: Environmental perceptions are positively related to job satisfaction.
++ H2: Environemtnal perceptions are positively related to organizational commitment.
++ H3: Attitudes toward coworkers are positively related to job satisfaction.
++ H4: Attitudes toward coworkers are positively related to organizational commitment.
++ H5: Job satisfaction is related positively to organizational commitment.
++ H6: Job satisfaction is related  positively to staying intentions.
++ H7: Organizational commitment is related positively to staying intention.
+
+---
+
+## Defining structural model
+
+```{r echo=FALSE, fig.align='center', out.width="60%"}
+knitr::include_graphics("img/structural_model.png")
+```
 
 
+---
+class: center middle
 
+# Let's practice
 
+---
 
+## Defining structural model
 
+.leftcol30[
+```{r eval=FALSE}
+library(semPlot)
+semPaths(object = sem_fit,
+         what = "std",
+         layout = "tree2",
+         intercepts = FALSE,
+         residuals = FALSE)
+```
+]
 
+.rightcol70[
+```{r echo=FALSE, out.width="180%", fig.align='center'}
+knitr::include_graphics("img/sempath2.svg")
+```
+]
 
+---
 
+## Defining structural model
 
-
-
+```{r echo=FALSE, out.width="70%", fig.align='center'}
+knitr::include_graphics("img/structural_result.svg")
+```
 
 
 
