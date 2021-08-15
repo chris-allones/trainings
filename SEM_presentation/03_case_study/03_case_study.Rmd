@@ -22,13 +22,16 @@ layout: true
 # libraries
 pacman::p_load(knitr, tidyverse, psych, EFAtools, janitor, metathis)
 
+xaringanExtra::use_share_again()
+xaringanExtra::style_share_again(share_buttons = c("twitter", "facebook", "linkedin"))
+
 meta() %>% 
-  meta_general(description = "SEM using R") %>% 
   meta_name("github-repo" = "chris-allones/SEM-R-training") %>% 
   meta_social(
     title = "SEM using R",
     description = "Training on structural equation modeling using R.",
     url = "https://chris-allones.github.io/SEM-R-training/index.html",
+    image = "https://chris-allones.github.io/SEM-R-training/images/preview.png",
     og_type = "website",
     og_author = "Christopher Llones",
     twitter_card_type = "summary_large_image",
