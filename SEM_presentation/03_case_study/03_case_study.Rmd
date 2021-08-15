@@ -18,6 +18,26 @@ output:
 
 layout: true
 
+```{r echo=FALSE}
+# libraries
+pacman::p_load(knitr, tidyverse, psych, EFAtools, janitor, metathis)
+
+meta() %>% 
+  meta_general(description = "SEM using R") %>% 
+  meta_name("github-repo" = "chris-allones/SEM-R-training") %>% 
+  meta_social(
+    title = "SEM using R",
+    description = "Training on structural equation modeling using R.",
+    url = "https://chris-allones.github.io/SEM-R-training/index.html",
+    og_type = "website",
+    og_author = "Christopher Llones",
+    twitter_card_type = "summary_large_image",
+    twitter_creator = "@Topenomics",
+    twitter_site = "@Topenomics"
+  )
+
+```
+
 ```{r setup, echo=FALSE}
 # working directory
 setwd(dir = "D:/OneDrive - KMITL/Documents/Git files/trainings/SEM_presentation/03_case_study")
