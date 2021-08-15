@@ -17,7 +17,7 @@ library(semTools)
 
 
 # 1 Data ----
-case_data <- read_excel("SEM/00 case study/e_bus_customer_satisfaction.xlsx") %>% 
+case_data <- read_excel("00_data/e_bus_customer_satisfaction.xlsx") %>% 
  clean_names()
 
 case_data_items <- case_data %>%
@@ -25,8 +25,6 @@ case_data_items <- case_data %>%
  
 ## 1.1 Multivariate normality ---
 mvn(data = case_data_items, mvnTest = "mardia")
-
-
 
 
 # 2. EXPLORATORY FACTOR ANALYSIS ----
