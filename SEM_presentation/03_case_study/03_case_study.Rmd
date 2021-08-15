@@ -18,7 +18,7 @@ output:
 
 layout: true
 
-```{r echo=FALSE}
+```{r meta, echo=FALSE}
 # libraries
 pacman::p_load(knitr, tidyverse, psych, EFAtools, janitor, metathis)
 
