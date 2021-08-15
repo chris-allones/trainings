@@ -18,7 +18,7 @@ output:
 
 layout: true
 
-```{r echo=FALSE}
+```{r meta, echo=FALSE}
 # libraries
 pacman::p_load(knitr, tidyverse, psych, EFAtools, janitor, metathis)
 
@@ -556,7 +556,9 @@ knitr::include_graphics("img/confuse.gif")
 
 + To understand the SEM process, consider the Table on the right.
 
-+ Iterative procedure using least square method.
++ e.g., iterative procedure using least square method.
+
+<br>
 
 ```{r echo=FALSE, fig.align='center', out.width="80%"}
 knitr::include_graphics("img/ols_sem_sample.png")
@@ -604,13 +606,16 @@ summary(cfa_fit)
 .leftcol40[
 #### Overall results
 
-$df = \frac{1}{2} p (p + 1) - k$
++ Degrees of freedom (df)
 
-$p$ = total observed variables
+  + $df = \frac{1}{2} p (p + 1) - k$
+  + $p$ = total observed variables
+  + $k$ = total estimated parameters
 
-$k$ = total estimated parameters
++ Identification
 
-Resulting $df$ for a three-item factor would be zero.
+  + Include at least three manifest variables
+  + Create models with $df > 0$
 ]
 
 .rightcol60[
@@ -633,7 +638,7 @@ summary(cfa_fit)
 .leftcol20[
 #### Loadings
 
--strength of the relationship of the items to the factor.
++ Measures the strength of the relationship between items and factor.
 ]
 
 .rightcol80[
@@ -687,7 +692,7 @@ summary(cfa_fit, standardized = TRUE)
 
 #### Badness of fit indices
 
-+ Standard root mean squrare residual (SRMR)
++ Standard root mean square of the residuals (SRMR)
 + Root mean square error of approximation (RMSEA)
 ]
 
@@ -828,7 +833,7 @@ knitr::include_graphics("img/cfa_sem.png")
 #### Hypothesis:
 
 + H1: Environmental perceptions are positively related to job satisfaction.
-+ H2: Environemtnal perceptions are positively related to organizational commitment.
++ H2: Environmental perceptions are positively related to organizational commitment.
 + H3: Attitudes toward coworkers are positively related to job satisfaction.
 + H4: Attitudes toward coworkers are positively related to organizational commitment.
 + H5: Job satisfaction is related positively to organizational commitment.
