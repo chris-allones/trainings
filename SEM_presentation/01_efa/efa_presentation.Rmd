@@ -18,7 +18,7 @@ output:
 
 layout: true
 
-```{r echo=FALSE}
+```{r meta, echo=FALSE}
 # libraries
 pacman::p_load(knitr, tidyverse, psych, EFAtools, janitor, metathis)
 
@@ -280,10 +280,12 @@ rmarkdown::paged_table(data)
 
 ## Conceptual assumptions
 
+.leftcol70[
 + Some uderlying structure does exist in the set of selected variables.
 + correlated variables and subsequent definition of factors do not guarantee relevance
   + *even if they meet the statistical requirement!*
 + It is the responsibility of the researcher to ensure that observed patterns are conceptually valid and appropriate.
+]
 
 ---
 
@@ -769,11 +771,10 @@ plot(fa_equamax$loadings[,1],
 .leftcol[
 #### Oblique rotation rotation
 + allow correlated factors
-+ suited to the goal of theoretically meaningful constracts
++ suited to the goal of theoretically meaningful constructs
 + oblique rotation methods
   + Promax
   + Oblimin
-+ Note: no specific rules in selecting a between rotation method.
 ]
 
 .rightcol[

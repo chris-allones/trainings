@@ -240,10 +240,12 @@ class: middle center
 
 ## Conceptual assumptions
 
+.leftcol70[
 + Some uderlying structure does exist in the set of selected variables.
 + correlated variables and subsequent definition of factors do not guarantee relevance
   + *even if they meet the statistical requirement!*
 + It is the responsibility of the researcher to ensure that observed patterns are conceptually valid and appropriate.
+]
 
 ---
 
@@ -314,7 +316,7 @@ KMO(data)
 
 ```
 
--- Kaiser-Meyer-Olkin criterion (KMO) ------------------------------------------
+-- Kaiser-Meyer-Olkin criterion (KMO) ----------------------------------------------------------------------------
 
 ! The overall KMO value for your data is mediocre.
   These data are probably suitable for factor analysis.
@@ -639,7 +641,7 @@ plot(fa_rotated$loadings[,1], fa_rotated$loadings[,2],
 
 
 .rightcol65[
-&lt;img src="efa_presentation_files/figure-html/unnamed-chunk-21-1.png" width="100%" /&gt;
+&lt;img src="efa_presentation_files/figure-html/unnamed-chunk-20-1.png" width="100%" /&gt;
 ]
 
 ---
@@ -669,7 +671,7 @@ plot(fa_rotated$loadings[,1], fa_rotated$loadings[,2],
 
 #### Orthogonal rotation
 
-&lt;img src="efa_presentation_files/figure-html/unnamed-chunk-23-1.png" width="100%" /&gt;
+&lt;img src="efa_presentation_files/figure-html/unnamed-chunk-22-1.png" width="100%" /&gt;
 
 
 ---
@@ -679,11 +681,10 @@ plot(fa_rotated$loadings[,1], fa_rotated$loadings[,2],
 .leftcol[
 #### Oblique rotation rotation
 + allow correlated factors
-+ suited to the goal of theoretically meaningful constracts
++ suited to the goal of theoretically meaningful constructs
 + oblique rotation methods
   + Promax
   + Oblimin
-+ Note: no specific rules in selecting a between rotation method.
 ]
 
 .rightcol[
@@ -696,7 +697,7 @@ plot(fa_rotated$loadings[,1], fa_rotated$loadings[,2],
 
 #### Oblique rotation
 
-&lt;img src="efa_presentation_files/figure-html/unnamed-chunk-25-1.png" width="100%" /&gt;
+&lt;img src="efa_presentation_files/figure-html/unnamed-chunk-24-1.png" width="100%" /&gt;
 
 ---
 class: middle center
