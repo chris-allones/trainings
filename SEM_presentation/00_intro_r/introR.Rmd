@@ -122,6 +122,7 @@ knitr::include_graphics("img/r_first_then_new.png")
 
 .fifty[Illustration adapted from [Allison Horst](https://twitter.com/allison_horst)]
 
+---
 
 
 
