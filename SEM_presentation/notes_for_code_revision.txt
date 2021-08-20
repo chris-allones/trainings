@@ -1,0 +1,9 @@
+EFA presentation
+- remove Likert scale
+- 3. factor extraction
+* object "hbat_unrotated_minres" need to rename in the print function
+
+
+
+CFA-SEM presentation
+* change lets practice after the "relibility and validity test"
