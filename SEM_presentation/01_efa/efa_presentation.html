@@ -268,12 +268,11 @@ class: middle center
 
 .rightcol[
 
+.details[
 
 ```r
-library(EFAtools)
-BARTLETT(data, N = 100)
+BARTLETT(data, N= nrow(data))
 ```
-
 
 ```
 
@@ -282,6 +281,7 @@ v The Bartlett's test of sphericity was significant at an alpha level of .05.
 
   &lt;U+0001D712&gt;²(55) = 619.27, p &lt; .001
 ```
+]
 ]
 
 ---
@@ -316,7 +316,7 @@ KMO(data)
 
 ```
 
--- Kaiser-Meyer-Olkin criterion (KMO) ----------------------------------------------------------------------------
+-- Kaiser-Meyer-Olkin criterion (KMO) ------------------------------------------
 
 ! The overall KMO value for your data is mediocre.
   These data are probably suitable for factor analysis.
@@ -992,6 +992,24 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   }
   preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
 })(document);</script>
+<script>
+  (function() {
+    var divHTML = document.querySelectorAll(".details-open");
+    divHTML.forEach(function (el) {
+      var preNodes = el.getElementsByTagName("pre");
+      var outputNode = preNodes[1];
+      outputNode.outerHTML = "<details open class='output'><summary>Run</summary>" + outputNode.outerHTML + "</details>";
+    })
+  })();
+(function() {
+  var divHTML = document.querySelectorAll(".details");
+  divHTML.forEach(function (el) {
+    var preNodes = el.getElementsByTagName("pre");
+    var outputNode = preNodes[1];
+    outputNode.outerHTML = "<details class='output'><summary>Run</summary>" + outputNode.outerHTML + "</details>";
+  })
+})();
+</script>
 
 <script>
 slideshow._releaseMath = function(el) {
