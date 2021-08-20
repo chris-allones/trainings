@@ -69,11 +69,11 @@ layout: true
 
 + R objects
 
-+ Data frames
-
 + R packages
-  
-+ tidyverse
+
++ Importing data
+
++ Basic data wrangling
 
   +  %&gt;% pipe operator 
   + `select()`
@@ -94,22 +94,257 @@ layout: true
 
 ---
 
+## R Objects
+
+.leftcol60[
++ You can consider R objects as "*saving information*"
+
++ e.g., text, number, matrix, vector, dataframe.
+
++ In other words everything in R is an object.
+]
+
+.rightcol40[
+&lt;img src="img/r_objects.gif" width="60%" /&gt;
+]
 
 
 
+---
+
+## R Objects
+
++ Objects are assigned a value using **`&lt;-`** consider the piece of code.
+
+.leftcol[
+.details[
+
+```r
+a1 &lt;- 10
+print(a1)
+```
+
+```
+[1] 10
+```
+]
+
+.details[
+
+```r
+a2 &lt;- 20
+a2
+```
+
+```
+[1] 20
+```
+]
+
+.details[
+
+```r
+a3 &lt;- c(10, 20, 30)
+a3
+```
+
+```
+[1] 10 20 30
+```
+]
+]
+
+.rightcol[
+
+.details[
+
+```r
+a1 * a2
+```
+
+```
+[1] 200
+```
+]
+
+.details[
+
+```r
+st_name &lt;- "christopher"
+st_age &lt;- 23
+st_sex &lt;- "male"
+
+student &lt;- c(st_name, st_age, st_sex)
+student
+```
+
+```
+[1] "christopher" "23"          "male"       
+```
+]
+]
+
+---
+
+## R Objects
+
+.leftcol[
++ Object names can be anything here!
+
++ I personally use lower-case style.
+
++ Check-out the recommended good practices in R (e.g., naming objects, writing codes)by the [tidyverse style guide](https://style.tidyverse.org/syntax.html)
+]
+
+---
+
+## R packages
+
+.leftcol60[
++ Collection of functions that load into your working environment.
+
++ It contain code that other R users have prepared for the community.
+
++ Installing packages
 
 
+```r
+install.packages("tidyverse")
+```
+
++ Loading packages
 
 
+```r
+library(tidyverse)
+```
+
+]
+
+.rightcol40[
+
+&lt;img src="img/package.gif" width="70%" style="display: block; margin: auto 0 auto auto;" /&gt;
+]
+
+---
+
+## Importing data
+
++ SPSS, Stata, SAS files: [haven package](https://haven.tidyverse.org/)
+
++ Excel files: [readxl package](https://readxl.tidyverse.org/)
+
++ CSV files: [readr package](https://readr.tidyverse.org/)
 
 
+---
+
+## Importing data
+
+#### SPSS, Stata &amp; SAS using [haven package](https://haven.tidyverse.org/)
+
+.leftcol60[
 
 
+```r
+library(haven)
+```
 
 
+```r
+# SPSS
+read_sav("path/data.sav")
+```
 
 
+```r
+# Stata
+read_dta("path/data.dta")
+```
 
+
+```r
+# SAS
+read_sas("path/data.sas7bdat")
+```
+]
+
+.rightcol40[
+&lt;img src="img/haven.png" width="40%" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+## Importing data
+
+#### Excel files using [readxl package](https://readxl.tidyverse.org/)
+
+.leftcol60[
+
+
+```r
+library(readxl)
+read_excel("path/dataset.xls")
+```
+
+
+```
+# A tibble: 150 x 5
+   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+          &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;  
+ 1          5.1         3.5          1.4         0.2 setosa 
+ 2          4.9         3            1.4         0.2 setosa 
+ 3          4.7         3.2          1.3         0.2 setosa 
+ 4          4.6         3.1          1.5         0.2 setosa 
+ 5          5           3.6          1.4         0.2 setosa 
+ 6          5.4         3.9          1.7         0.4 setosa 
+ 7          4.6         3.4          1.4         0.3 setosa 
+ 8          5           3.4          1.5         0.2 setosa 
+ 9          4.4         2.9          1.4         0.2 setosa 
+10          4.9         3.1          1.5         0.1 setosa 
+# ... with 140 more rows
+```
+]
+
+.rightcol40[
+&lt;img src="img/readxl.png" width="40%" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+## Importing data
+
+#### CSV files using [readr package](https://readr.tidyverse.org/)
+
+.leftcol60[
+
+```r
+install.packages("readr")
+library(readr)
+```
+
+
+```r
+# comma separated (CSV) files
+read_csv("path/data.csv")
+```
+
+
+```r
+# tab separated files
+read_tsv("path/data.tsv")
+```
+
+
+```r
+# general delimited files
+read_delim("path/data.delim")
+```
+]
+
+.rightcol40[
+&lt;img src="img/readr.png" width="40%" style="display: block; margin: auto;" /&gt;
+]
 
 
 

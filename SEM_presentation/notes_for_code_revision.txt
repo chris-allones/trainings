@@ -7,3 +7,6 @@ EFA presentation
 
 CFA-SEM presentation
 * change lets practice after the "relibility and validity test"
+
+CFA-SEM code
+* review data path "remove /SEM/..."
