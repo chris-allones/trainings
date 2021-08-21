@@ -43,7 +43,7 @@ fa.parallel(hbat_data, fa = "fa")
 # 3. Factor extraction ----
 ## 3.1 Extraction method: Minimum residual (MinRes) ----
 hbat_unrotated_minres <- fa(r = hbat_data, nfactors = 5, rotate = "none")
-print(hbat_unrotated$loadings, sort = TRUE, cutoff = 0.4)
+print(hbat_unrotated_minres$loadings, sort = TRUE, cutoff = 0.4)
 
 
 ## 3.2 Extraction method: Maximum likelihood estimation (MLE) ----
