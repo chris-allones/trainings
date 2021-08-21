@@ -763,11 +763,6 @@ fitMeasures(cfa_fit,  fit.measures = c("srmr", "rmsea"))
 ]
 
 ---
-class: middle center
-
-# Let's practice
-
----
 
 ## Reliability and validity test
 
@@ -812,6 +807,11 @@ semTools::reliability(cfa_fit) %>% round(3)
 ```
 
 ]
+
+---
+class: middle center
+
+# Let's practice
 
 ---
 
