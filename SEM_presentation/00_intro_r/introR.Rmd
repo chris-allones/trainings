@@ -45,7 +45,7 @@ meta() %>%
 
 ```{r setup, echo=FALSE}
 # working directory
-setwd(dir = "D:/OneDrive - KMITL/Documents/Git files/trainings/SEM_presentation/00_intro_r/")
+setwd(dir = "D:/OneDrive - KMITL/Documents/Git files/trainings/SEM_presentation/00_intro_r")
 
 options(htmltools.dir.version = FALSE,
         knitr.table.format = "html")
