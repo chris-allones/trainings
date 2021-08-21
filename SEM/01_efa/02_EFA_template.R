@@ -4,7 +4,6 @@
 library(tidyverse)
 library(haven)
 library(janitor)
-library(likert)
 library(psych)
 library(EFAtools)
 
