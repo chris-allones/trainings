@@ -2,7 +2,7 @@
 title: "Structural Equation Modeling (SEM)<br> using R"
 subtitle: 
   - "<br> Session 2: CFA and SEM<br>"
-  - "<br>23 August 2021"  
+  - "<br>23-24 August 2021"  
 output:
   xaringan::moon_reader:
     css:
