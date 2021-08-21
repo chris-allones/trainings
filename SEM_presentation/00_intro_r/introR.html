@@ -71,17 +71,17 @@ layout: true
 
 + R packages
 
-+ Importing data
++ Reading data into R
 
-+ Basic data wrangling
++ Basic data wrangling with tidyverse
 
-  +  %&gt;% pipe operator 
   + `select()`
   + `filter()`
   + `mutate()`
   + `rename()`
   + `arrange()`
   + `group_by()` and `summarize()`
+  + `%&gt;%` pipe operator 
   
 ---
 
@@ -239,7 +239,7 @@ library(tidyverse)
 
 ---
 
-## Importing data
+## Reading data into R
 
 #### SPSS, Stata &amp; SAS using [haven package](https://haven.tidyverse.org/)
 
@@ -275,7 +275,7 @@ read_sas("path/data.sas7bdat")
 
 ---
 
-## Importing data
+## Reading data into R
 
 #### Excel files using [readxl package](https://readxl.tidyverse.org/)
 
@@ -312,7 +312,7 @@ read_excel("path/dataset.xls")
 
 ---
 
-## Importing data
+## Reading data into R
 
 #### CSV files using [readr package](https://readr.tidyverse.org/)
 
@@ -346,11 +346,844 @@ read_delim("path/data.delim")
 &lt;img src="img/readr.png" width="40%" style="display: block; margin: auto;" /&gt;
 ]
 
+---
+
+## Reading data into R
+
+#### Tips on naming (file) names
+
+.leftcol[
++ machine readable
+  + avoid spaces, punctuation, accented, characters, case sensitivity
+
++ human readable
+  + easy to search for files later
+  + easy narrow files lists based on names
+  + easy to extract into from file names
+  
++ J. Bryan "[How to name files](https://speakerdeck.com/jennybc/how-to-name-files)"
+]
+
+.rightcol[
+&lt;img src="img/namine_files.jfif" width="80%" style="display: block; margin: auto 0 auto auto;" /&gt;
+.right[.fifty[Illustration adapted from [Jennifer Bryan](https://speakerdeck.com/jennybc/how-to-name-files)]]
+]
+
+---
+class: middle center
+
+&lt;img src="img/tidyverse.png" width="30%" /&gt;
+
+# Tidyverse
+
+---
+
+## What is a tidyverse?
+
+A collection of R packages designed for data science.
+
+All packages share an underlying philosophy, grammar, and data structure.
+
+&lt;center&gt;
+&lt;img src="https://rstudio-education.github.io/tidyverse-cookbook/images/data-science-workflow.png" style="width: 60%" /&gt;
+&lt;/center&gt;
+
+---
+
+## Tidyverse :: tidy data
+
+&lt;center&gt;
+&lt;img src="https://www.openscapes.org/img/blog/tidydata/tidydata_1.jpg" style="width: 70%" /&gt;
+&lt;/center&gt;
+
+.fifty[Artist: [Allison Horst](https://github.com/allisonhorst)]
+
+---
+
+## Tidyverse :: tidy data
+
+&lt;center&gt;
+&lt;img src="https://www.openscapes.org/img/blog/tidydata/tidydata_2.jpg" style="width: 60%" /&gt;
+&lt;/center&gt;
+
+.fifty[Artist: [Allison Horst](https://github.com/allisonhorst)]
+
+---
+
+## Tidyverse :: tidy data
+
+**Tidy data makes it easier for reproducibility and reuse**
+
+&lt;center&gt;
+&lt;img src="https://www.openscapes.org/img/blog/tidydata/tidydata_5.jpg" style="width: 60%" /&gt;
+&lt;/center&gt;
+
+.fifty[Artist: [Allison Horst](https://github.com/allisonhorst)]
+
+---
+
+## Tidyverse :: tidy data
+
+**Yehey! Tidy Data for the win!**
+
+&lt;center&gt;
+&lt;img src="https://www.openscapes.org/img/blog/tidydata/tidydata_6.jpg" style="width: 60%" /&gt;
+&lt;/center&gt;
+
+.fifty[Artist: [Allison Horst](https://github.com/allisonhorst)]
+
+
+---
+
+class: middle center
+
+## Data wrangling using `dplyr`
+
+&lt;center&gt;
+&lt;img src="https://github.com/allisonhorst/stats-illustrations/blob/master/rstats-artwork/dplyr_wrangling.png?raw=true" style="width: 40%" /&gt;
+&lt;/center&gt;
+
+.fifty[Artist: [Allison Horst](https://github.com/allisonhorst)]
+
+---
+
+## `dplyr`
+.leftcol[
+**Overview**
+
++ `select()` picks variables based on their names
+
++ `mutate()` adds new variables
+
++ `filter()` picks cases based on their values
+
++ `summarise()` reduces multiple values down to a single summary
+
++ `arrange()` change the ordering of the rows
+
+see `dplyr` [cheatsheets](https://github.com/rstudio/cheatsheets/blob/master/data-transformation.pdf)
+]
+
+.rightcol[
+&lt;img src="img/dplyr.png" width="80%" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+## `select()`
+
+![](https://favstats.shinyapps.io/r_intro/_w_bfa1a45e/images/select.png)
+
+.leftcol[
 
 
 
+```r
+data
+```
+
+```
+# A tibble: 1,704 x 6
+   country     continent  year lifeExp      pop gdpPercap
+   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+ 1 Afghanistan Asia       1952    28.8  8425333      779.
+ 2 Afghanistan Asia       1957    30.3  9240934      821.
+ 3 Afghanistan Asia       1962    32.0 10267083      853.
+ 4 Afghanistan Asia       1967    34.0 11537966      836.
+ 5 Afghanistan Asia       1972    36.1 13079460      740.
+ 6 Afghanistan Asia       1977    38.4 14880372      786.
+ 7 Afghanistan Asia       1982    39.9 12881816      978.
+ 8 Afghanistan Asia       1987    40.8 13867957      852.
+ 9 Afghanistan Asia       1992    41.7 16317921      649.
+10 Afghanistan Asia       1997    41.8 22227415      635.
+# ... with 1,694 more rows
+```
+]
+
+.rightcol[
+
+```r
+select(data, continent, country, pop)
+```
+
+```
+# A tibble: 1,704 x 3
+   continent country          pop
+   &lt;fct&gt;     &lt;fct&gt;          &lt;int&gt;
+ 1 Asia      Afghanistan  8425333
+ 2 Asia      Afghanistan  9240934
+ 3 Asia      Afghanistan 10267083
+ 4 Asia      Afghanistan 11537966
+ 5 Asia      Afghanistan 13079460
+ 6 Asia      Afghanistan 14880372
+ 7 Asia      Afghanistan 12881816
+ 8 Asia      Afghanistan 13867957
+ 9 Asia      Afghanistan 16317921
+10 Asia      Afghanistan 22227415
+# ... with 1,694 more rows
+```
+
+]
+
+---
+
+## `select()`
+
+We can also **remove** variables with a **`-`** (minus)
+
+.leftcol[
 
 
+
+```r
+data
+```
+
+```
+# A tibble: 1,704 x 6
+   country     continent  year lifeExp      pop gdpPercap
+   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+ 1 Afghanistan Asia       1952    28.8  8425333      779.
+ 2 Afghanistan Asia       1957    30.3  9240934      821.
+ 3 Afghanistan Asia       1962    32.0 10267083      853.
+ 4 Afghanistan Asia       1967    34.0 11537966      836.
+ 5 Afghanistan Asia       1972    36.1 13079460      740.
+ 6 Afghanistan Asia       1977    38.4 14880372      786.
+ 7 Afghanistan Asia       1982    39.9 12881816      978.
+ 8 Afghanistan Asia       1987    40.8 13867957      852.
+ 9 Afghanistan Asia       1992    41.7 16317921      649.
+10 Afghanistan Asia       1997    41.8 22227415      635.
+# ... with 1,694 more rows
+```
+]
+
+.rightcol[
+
+```r
+select(data, -year, -pop)
+```
+
+```
+# A tibble: 1,704 x 4
+   country     continent lifeExp gdpPercap
+   &lt;fct&gt;       &lt;fct&gt;       &lt;dbl&gt;     &lt;dbl&gt;
+ 1 Afghanistan Asia         28.8      779.
+ 2 Afghanistan Asia         30.3      821.
+ 3 Afghanistan Asia         32.0      853.
+ 4 Afghanistan Asia         34.0      836.
+ 5 Afghanistan Asia         36.1      740.
+ 6 Afghanistan Asia         38.4      786.
+ 7 Afghanistan Asia         39.9      978.
+ 8 Afghanistan Asia         40.8      852.
+ 9 Afghanistan Asia         41.7      649.
+10 Afghanistan Asia         41.8      635.
+# ... with 1,694 more rows
+```
+]
+
+---
+
+## `select()`
+
+**Selection helpers**
+
+These *selection helpers* match variables according to a given pattern.
+
++ `starts_with()` starts with a prefix
+
++ `ends_with()` ends with a suffix
+
++ `contains()` contains a literal string
+
++ `matches()` matches regular expression
+
+
+---
+
+## `filter()`
+
+![](https://favstats.shinyapps.io/r_intro/_w_bfa1a45e/images/filter.png)
+
+.leftcol[
+
+```r
+data
+```
+
+```
+# A tibble: 1,704 x 6
+   country     continent  year lifeExp      pop gdpPercap
+   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+ 1 Afghanistan Asia       1952    28.8  8425333      779.
+ 2 Afghanistan Asia       1957    30.3  9240934      821.
+ 3 Afghanistan Asia       1962    32.0 10267083      853.
+ 4 Afghanistan Asia       1967    34.0 11537966      836.
+ 5 Afghanistan Asia       1972    36.1 13079460      740.
+ 6 Afghanistan Asia       1977    38.4 14880372      786.
+ 7 Afghanistan Asia       1982    39.9 12881816      978.
+ 8 Afghanistan Asia       1987    40.8 13867957      852.
+ 9 Afghanistan Asia       1992    41.7 16317921      649.
+10 Afghanistan Asia       1997    41.8 22227415      635.
+# ... with 1,694 more rows
+```
+]
+
+.rightcol[
+
+```r
+filter(data, country == "Philippines")
+```
+
+```
+# A tibble: 12 x 6
+   country     continent  year lifeExp      pop gdpPercap
+   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+ 1 Philippines Asia       1952    47.8 22438691     1273.
+ 2 Philippines Asia       1957    51.3 26072194     1548.
+ 3 Philippines Asia       1962    54.8 30325264     1650.
+ 4 Philippines Asia       1967    56.4 35356600     1814.
+ 5 Philippines Asia       1972    58.1 40850141     1989.
+ 6 Philippines Asia       1977    60.1 46850962     2373.
+ 7 Philippines Asia       1982    62.1 53456774     2603.
+ 8 Philippines Asia       1987    64.2 60017788     2190.
+ 9 Philippines Asia       1992    66.5 67185766     2279.
+10 Philippines Asia       1997    68.6 75012988     2537.
+11 Philippines Asia       2002    70.3 82995088     2651.
+12 Philippines Asia       2007    71.7 91077287     3190.
+```
+]
+
+---
+
+## `mutate()`
+
+![](https://favstats.shinyapps.io/r_intro/_w_dfe6b732/images/mutate.png)
+
+The `mutate` function will take a statement similar to this:
+
++ `variable_name` = `do_some_calculation`
+
++ `variable_name` will be attached at the end of the dataset.
+
+
+---
+
+## `mutate()`
+
+Let's calculate the `gdp`
+
+.leftcol[
+
+```r
+data
+```
+
+```
+# A tibble: 1,704 x 6
+   country     continent  year lifeExp      pop gdpPercap
+   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+ 1 Afghanistan Asia       1952    28.8  8425333      779.
+ 2 Afghanistan Asia       1957    30.3  9240934      821.
+ 3 Afghanistan Asia       1962    32.0 10267083      853.
+ 4 Afghanistan Asia       1967    34.0 11537966      836.
+ 5 Afghanistan Asia       1972    36.1 13079460      740.
+ 6 Afghanistan Asia       1977    38.4 14880372      786.
+ 7 Afghanistan Asia       1982    39.9 12881816      978.
+ 8 Afghanistan Asia       1987    40.8 13867957      852.
+ 9 Afghanistan Asia       1992    41.7 16317921      649.
+10 Afghanistan Asia       1997    41.8 22227415      635.
+# ... with 1,694 more rows
+```
+]
+
+.rightcol[
+
+```r
+mutate(data, GDP = gdpPercap * pop)
+```
+
+```
+# A tibble: 1,704 x 7
+   country     continent  year lifeExp      pop gdpPercap          GDP
+   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;        &lt;dbl&gt;
+ 1 Afghanistan Asia       1952    28.8  8425333      779.  6567086330.
+ 2 Afghanistan Asia       1957    30.3  9240934      821.  7585448670.
+ 3 Afghanistan Asia       1962    32.0 10267083      853.  8758855797.
+ 4 Afghanistan Asia       1967    34.0 11537966      836.  9648014150.
+ 5 Afghanistan Asia       1972    36.1 13079460      740.  9678553274.
+ 6 Afghanistan Asia       1977    38.4 14880372      786. 11697659231.
+ 7 Afghanistan Asia       1982    39.9 12881816      978. 12598563401.
+ 8 Afghanistan Asia       1987    40.8 13867957      852. 11820990309.
+ 9 Afghanistan Asia       1992    41.7 16317921      649. 10595901589.
+10 Afghanistan Asia       1997    41.8 22227415      635. 14121995875.
+# ... with 1,694 more rows
+```
+]
+
+---
+
+## `rename()`
+
+Changes the variable name while keeping all else intact.
+
++ `new_variable_name` = `old_variable_name`
+
+.leftcol[
+
+```r
+data
+```
+
+```
+# A tibble: 1,704 x 6
+   country     continent  year lifeExp      pop gdpPercap
+   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+ 1 Afghanistan Asia       1952    28.8  8425333      779.
+ 2 Afghanistan Asia       1957    30.3  9240934      821.
+ 3 Afghanistan Asia       1962    32.0 10267083      853.
+ 4 Afghanistan Asia       1967    34.0 11537966      836.
+ 5 Afghanistan Asia       1972    36.1 13079460      740.
+ 6 Afghanistan Asia       1977    38.4 14880372      786.
+ 7 Afghanistan Asia       1982    39.9 12881816      978.
+ 8 Afghanistan Asia       1987    40.8 13867957      852.
+ 9 Afghanistan Asia       1992    41.7 16317921      649.
+10 Afghanistan Asia       1997    41.8 22227415      635.
+# ... with 1,694 more rows
+```
+]
+
+.rightcol[
+
+```r
+rename(data, population = pop)
+```
+
+```
+# A tibble: 1,704 x 6
+   country     continent  year lifeExp population gdpPercap
+   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;      &lt;int&gt;     &lt;dbl&gt;
+ 1 Afghanistan Asia       1952    28.8    8425333      779.
+ 2 Afghanistan Asia       1957    30.3    9240934      821.
+ 3 Afghanistan Asia       1962    32.0   10267083      853.
+ 4 Afghanistan Asia       1967    34.0   11537966      836.
+ 5 Afghanistan Asia       1972    36.1   13079460      740.
+ 6 Afghanistan Asia       1977    38.4   14880372      786.
+ 7 Afghanistan Asia       1982    39.9   12881816      978.
+ 8 Afghanistan Asia       1987    40.8   13867957      852.
+ 9 Afghanistan Asia       1992    41.7   16317921      649.
+10 Afghanistan Asia       1997    41.8   22227415      635.
+# ... with 1,694 more rows
+```
+]
+
+---
+
+## `arrange()`
+
+You can order data by variable to show the highest or lowest values first.
+
+.leftcol[
+consider `lifeExp` default is lowest first
+
+```r
+data
+```
+
+```
+# A tibble: 1,704 x 6
+   country     continent  year lifeExp      pop gdpPercap
+   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+ 1 Afghanistan Asia       1952    28.8  8425333      779.
+ 2 Afghanistan Asia       1957    30.3  9240934      821.
+ 3 Afghanistan Asia       1962    32.0 10267083      853.
+ 4 Afghanistan Asia       1967    34.0 11537966      836.
+ 5 Afghanistan Asia       1972    36.1 13079460      740.
+ 6 Afghanistan Asia       1977    38.4 14880372      786.
+ 7 Afghanistan Asia       1982    39.9 12881816      978.
+ 8 Afghanistan Asia       1987    40.8 13867957      852.
+ 9 Afghanistan Asia       1992    41.7 16317921      649.
+10 Afghanistan Asia       1997    41.8 22227415      635.
+# ... with 1,694 more rows
+```
+]
+
+.rightcol[
+`desc()` sort `lifeExp` from highest to lowest
+
+```r
+arrange(data, desc(lifeExp))
+```
+
+```
+# A tibble: 1,704 x 6
+   country          continent  year lifeExp       pop gdpPercap
+   &lt;fct&gt;            &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;     &lt;int&gt;     &lt;dbl&gt;
+ 1 Japan            Asia       2007    82.6 127467972    31656.
+ 2 Hong Kong, China Asia       2007    82.2   6980412    39725.
+ 3 Japan            Asia       2002    82   127065841    28605.
+ 4 Iceland          Europe     2007    81.8    301931    36181.
+ 5 Switzerland      Europe     2007    81.7   7554661    37506.
+ 6 Hong Kong, China Asia       2002    81.5   6762476    30209.
+ 7 Australia        Oceania    2007    81.2  20434176    34435.
+ 8 Spain            Europe     2007    80.9  40448191    28821.
+ 9 Sweden           Europe     2007    80.9   9031088    33860.
+10 Israel           Asia       2007    80.7   6426679    25523.
+# ... with 1,694 more rows
+```
+]
+
+
+---
+
+## `group_by` and `summarise()`
+
++ Use when you want to aggregate your data (by groups).
+
++ Sometimes we want to calculate group statistics.
+
+&lt;br&gt;
+
+.center[
+&lt;img src="https://learn.r-journalism.com/wrangling/dplyr/images/groupby.png" style="width: 60%" /&gt;
+]
+
+---
+
+## `group_by` and `summarise()`
+
+Suppose we want to know the average population by continent.
+.leftcol40[
+
+```r
+data
+```
+
+```
+# A tibble: 1,704 x 6
+   country     continent  year lifeExp      pop gdpPercap
+   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+ 1 Afghanistan Asia       1952    28.8  8425333      779.
+ 2 Afghanistan Asia       1957    30.3  9240934      821.
+ 3 Afghanistan Asia       1962    32.0 10267083      853.
+ 4 Afghanistan Asia       1967    34.0 11537966      836.
+ 5 Afghanistan Asia       1972    36.1 13079460      740.
+ 6 Afghanistan Asia       1977    38.4 14880372      786.
+ 7 Afghanistan Asia       1982    39.9 12881816      978.
+ 8 Afghanistan Asia       1987    40.8 13867957      852.
+ 9 Afghanistan Asia       1992    41.7 16317921      649.
+10 Afghanistan Asia       1997    41.8 22227415      635.
+# ... with 1,694 more rows
+```
+]
+
+.rightcol60[
+
+```r
+grouped_by_continent &lt;- group_by(data, continent)
+summarise(grouped_by_continent, avg_pop = mean(pop))
+```
+
+```
+# A tibble: 5 x 2
+  continent   avg_pop
+  &lt;fct&gt;         &lt;dbl&gt;
+1 Africa     9916003.
+2 Americas  24504795.
+3 Asia      77038722.
+4 Europe    17169765.
+5 Oceania    8874672.
+```
+]
+
+---
+
+## `group_by` and `summarise()`
+
+Suppose we want to know the average population by continent.
+.leftcol40[
+
+```r
+data
+```
+
+```
+# A tibble: 1,704 x 6
+   country     continent  year lifeExp      pop gdpPercap
+   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+ 1 Afghanistan Asia       1952    28.8  8425333      779.
+ 2 Afghanistan Asia       1957    30.3  9240934      821.
+ 3 Afghanistan Asia       1962    32.0 10267083      853.
+ 4 Afghanistan Asia       1967    34.0 11537966      836.
+ 5 Afghanistan Asia       1972    36.1 13079460      740.
+ 6 Afghanistan Asia       1977    38.4 14880372      786.
+ 7 Afghanistan Asia       1982    39.9 12881816      978.
+ 8 Afghanistan Asia       1987    40.8 13867957      852.
+ 9 Afghanistan Asia       1992    41.7 16317921      649.
+10 Afghanistan Asia       1997    41.8 22227415      635.
+# ... with 1,694 more rows
+```
+]
+
+.rightcol60[
+
+```r
+grouped_by_continent &lt;- group_by(data, continent)
+summarised_data &lt;- summarise(grouped_by_continent, avg_pop = mean(pop))
+arrange(summarised_data, desc(avg_pop))
+```
+
+```
+# A tibble: 5 x 2
+  continent   avg_pop
+  &lt;fct&gt;         &lt;dbl&gt;
+1 Asia      77038722.
+2 Americas  24504795.
+3 Europe    17169765.
+4 Africa     9916003.
+5 Oceania    8874672.
+```
+]
+
+---
+
+.leftcol[
+### Too many codes!
+
+### It's hard to follow!
+
+### It's hard to keep track of the codes!
+]
+
+.rightcol[
+&lt;img src="img/teary.gif" width="100%" /&gt;
+]
+
+---
+
+class: middle center
+
+## `%&gt;%` pipe operator
+
+&lt;center&gt;
+&lt;img src="https://rpodcast.github.io/officer-advrmarkdown/img/magrittr.png" style="width: 50%" /&gt;
+&lt;/center&gt;
+
+---
+
+## The %&gt;% operator
+
+The **`%&gt;%`** helps your write code in a way that is easier to read and understand.
+
+.leftcol[
+Calculating population by continent **without %&gt;%**
+
+```r
+grouped_by_continent &lt;- group_by(data, continent)
+summarised_data &lt;- summarise(grouped_by_continent, avg_pop = mean(pop))
+arrange(summarised_data, desc(avg_pop))
+```
+
+```
+# A tibble: 5 x 2
+  continent   avg_pop
+  &lt;fct&gt;         &lt;dbl&gt;
+1 Asia      77038722.
+2 Americas  24504795.
+3 Europe    17169765.
+4 Africa     9916003.
+5 Oceania    8874672.
+```
+]
+
+.rightcol[
+Calculating population by continent **with %&gt;%**
+
+```r
+data %&gt;% 
+  group_by(continent) %&gt;% 
+  summarise(avg_pop = mean(pop)) %&gt;% 
+  arrange(desc(avg_pop))
+```
+
+```
+# A tibble: 5 x 2
+  continent   avg_pop
+  &lt;fct&gt;         &lt;dbl&gt;
+1 Asia      77038722.
+2 Americas  24504795.
+3 Europe    17169765.
+4 Africa     9916003.
+5 Oceania    8874672.
+```
+]
+
+---
+
+## The %&gt;% operator
+
+Suppose we want to know the evarage life expectancy of Asian countries per year.
+
+.leftcol[
+Calculating population by continent **without %&gt;%**
+
+
+```r
+filtered_by_asia &lt;- filter(data, continent == "Asia")
+grouped_by_country_year &lt;- group_by(filtered_by_asia, country, year)
+summarise(grouped_by_country_year, avg_lifeExp = mean(lifeExp))
+```
+
+.code-output-scroll[
+
+```
+# A tibble: 396 x 3
+# Groups:   country [33]
+   country      year avg_lifeExp
+   &lt;fct&gt;       &lt;int&gt;       &lt;dbl&gt;
+ 1 Afghanistan  1952        28.8
+ 2 Afghanistan  1957        30.3
+ 3 Afghanistan  1962        32.0
+ 4 Afghanistan  1967        34.0
+ 5 Afghanistan  1972        36.1
+ 6 Afghanistan  1977        38.4
+ 7 Afghanistan  1982        39.9
+ 8 Afghanistan  1987        40.8
+ 9 Afghanistan  1992        41.7
+10 Afghanistan  1997        41.8
+# ... with 386 more rows
+```
+]
+]
+
+.rightcol[
+Calculating population by continent **with %&gt;%**
+
+
+```r
+data %&gt;% 
+  filter(continent == "Asia") %&gt;% 
+  group_by(country, year) %&gt;% 
+  summarise(avg_lifeExp = mean(lifeExp))
+```
+
+.code-output-scroll[
+
+```
+# A tibble: 396 x 3
+# Groups:   country [33]
+   country      year avg_lifeExp
+   &lt;fct&gt;       &lt;int&gt;       &lt;dbl&gt;
+ 1 Afghanistan  1952        28.8
+ 2 Afghanistan  1957        30.3
+ 3 Afghanistan  1962        32.0
+ 4 Afghanistan  1967        34.0
+ 5 Afghanistan  1972        36.1
+ 6 Afghanistan  1977        38.4
+ 7 Afghanistan  1982        39.9
+ 8 Afghanistan  1987        40.8
+ 9 Afghanistan  1992        41.7
+10 Afghanistan  1997        41.8
+# ... with 386 more rows
+```
+]
+]
+
+---
+
+## The %&gt;% operator
+
+.leftcol[
+Calculating population by continent **without %&gt;%**
+
+
+```r
+filtered_by_asia &lt;- filter(data, continent == "Asia")
+grouped_by_country &lt;- group_by(filtered_by_asia, country)
+summarised_by_country &lt;- summarise(grouped_by_country, avg_lifeExp = mean(lifeExp))
+arrange(summarised_by_country, desc(avg_lifeExp))
+```
+
+.code-output-scroll[
+
+```
+# A tibble: 33 x 2
+   country          avg_lifeExp
+   &lt;fct&gt;                  &lt;dbl&gt;
+ 1 Japan                   74.8
+ 2 Israel                  73.6
+ 3 Hong Kong, China        73.5
+ 4 Singapore               71.2
+ 5 Taiwan                  70.3
+ 6 Kuwait                  68.9
+ 7 Sri Lanka               66.5
+ 8 Lebanon                 65.9
+ 9 Bahrain                 65.6
+10 Korea, Rep.             65.0
+# ... with 23 more rows
+```
+]
+]
+
+.rightcol[
+Calculating population by continent **with %&gt;%**
+
+
+```r
+data %&gt;% 
+  filter(continent == "Asia") %&gt;% 
+  group_by(country) %&gt;% 
+  summarise(avg_lifeExp = mean(lifeExp)) %&gt;% 
+  arrange(desc(avg_lifeExp))
+```
+
+.code-output-scroll[
+
+```
+# A tibble: 33 x 2
+   country          avg_lifeExp
+   &lt;fct&gt;                  &lt;dbl&gt;
+ 1 Japan                   74.8
+ 2 Israel                  73.6
+ 3 Hong Kong, China        73.5
+ 4 Singapore               71.2
+ 5 Taiwan                  70.3
+ 6 Kuwait                  68.9
+ 7 Sri Lanka               66.5
+ 8 Lebanon                 65.9
+ 9 Bahrain                 65.6
+10 Korea, Rep.             65.0
+# ... with 23 more rows
+```
+]
+]
+
+---
+
+class: center middle
+
+# Let's practice!
+
+
+---
+
+class: middle center
+
+# Thank you!
+
+#### Some slide content were heavily adapted from [Fabio Votta](https://github.com/favstats)
+#### Slides created via the R packages:
+
+.leftcol[
+&lt;img src="img/xaringan.png" style="display:inline-block; margin: 0" width=20%/&gt; 
+
+### xaringan by Yihui
+]
+
+.rightcol[
+&lt;img src="img/xaringanthemer.png" style="display:inline-block; margin: 0" width=25%/&gt; 
+
+### xaringanthemer and xaringanExtra by Garrick
+]
 
 
 

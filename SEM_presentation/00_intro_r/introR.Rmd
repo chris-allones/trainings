@@ -99,17 +99,17 @@ style_duo_accent(
 
 + R packages
 
-+ Importing data
++ Reading data into R
 
-+ Basic data wrangling
++ Basic data wrangling with tidyverse
 
-  +  %>% pipe operator 
   + `select()`
   + `filter()`
   + `mutate()`
   + `rename()`
   + `arrange()`
   + `group_by()` and `summarize()`
+  + `%>%` pipe operator 
   
 ---
 
@@ -246,7 +246,7 @@ knitr::include_graphics("img/package.gif")
 
 ---
 
-## Importing data
+## Reading data into R
 
 #### SPSS, Stata & SAS using [haven package](https://haven.tidyverse.org/)
 
@@ -280,7 +280,7 @@ knitr::include_graphics("img/haven.png")
 
 ---
 
-## Importing data
+## Reading data into R
 
 #### Excel files using [readxl package](https://readxl.tidyverse.org/)
 
@@ -306,7 +306,7 @@ knitr::include_graphics("img/readxl.png")
 
 ---
 
-## Importing data
+## Reading data into R
 
 #### CSV files using [readr package](https://readr.tidyverse.org/)
 
@@ -338,11 +338,505 @@ knitr::include_graphics("img/readr.png")
 ```
 ]
 
+---
+
+## Reading data into R
+
+#### Tips on naming (file) names
+
+.leftcol[
++ machine readable
+  + avoid spaces, punctuation, accented, characters, case sensitivity
+
++ human readable
+  + easy to search for files later
+  + easy narrow files lists based on names
+  + easy to extract into from file names
+  
++ J. Bryan "[How to name files](https://speakerdeck.com/jennybc/how-to-name-files)"
+]
+
+.rightcol[
+```{r echo=FALSE, out.width="80%", fig.align='right'}
+knitr::include_graphics("img/namine_files.jfif")
+```
+.right[.fifty[Illustration adapted from [Jennifer Bryan](https://speakerdeck.com/jennybc/how-to-name-files)]]
+]
+
+---
+class: middle center
+
+```{r echo=FALSE, out.width="30%"}
+knitr::include_graphics("img/tidyverse.png")
+```
+
+# Tidyverse
+
+---
+
+## What is a tidyverse?
+
+A collection of R packages designed for data science.
+
+All packages share an underlying philosophy, grammar, and data structure.
+
+<center>
+<img src="https://rstudio-education.github.io/tidyverse-cookbook/images/data-science-workflow.png" style="width: 60%" />
+</center>
+
+---
+
+## Tidyverse :: tidy data
+
+<center>
+<img src="https://www.openscapes.org/img/blog/tidydata/tidydata_1.jpg" style="width: 70%" />
+</center>
+
+.fifty[Artist: [Allison Horst](https://github.com/allisonhorst)]
+
+---
+
+## Tidyverse :: tidy data
+
+<center>
+<img src="https://www.openscapes.org/img/blog/tidydata/tidydata_2.jpg" style="width: 60%" />
+</center>
+
+.fifty[Artist: [Allison Horst](https://github.com/allisonhorst)]
+
+---
+
+## Tidyverse :: tidy data
+
+**Tidy data makes it easier for reproducibility and reuse**
+
+<center>
+<img src="https://www.openscapes.org/img/blog/tidydata/tidydata_5.jpg" style="width: 60%" />
+</center>
+
+.fifty[Artist: [Allison Horst](https://github.com/allisonhorst)]
+
+---
+
+## Tidyverse :: tidy data
+
+**Yehey! Tidy Data for the win!**
+
+<center>
+<img src="https://www.openscapes.org/img/blog/tidydata/tidydata_6.jpg" style="width: 60%" />
+</center>
+
+.fifty[Artist: [Allison Horst](https://github.com/allisonhorst)]
 
 
+---
+
+class: middle center
+
+## Data wrangling using `dplyr`
+
+<center>
+<img src="https://github.com/allisonhorst/stats-illustrations/blob/master/rstats-artwork/dplyr_wrangling.png?raw=true" style="width: 40%" />
+</center>
+
+.fifty[Artist: [Allison Horst](https://github.com/allisonhorst)]
+
+---
+
+## `dplyr`
+.leftcol[
+**Overview**
+
++ `select()` picks variables based on their names
+
++ `mutate()` adds new variables
+
++ `filter()` picks cases based on their values
+
++ `summarise()` reduces multiple values down to a single summary
+
++ `arrange()` change the ordering of the rows
+
+see `dplyr` [cheatsheets](https://github.com/rstudio/cheatsheets/blob/master/data-transformation.pdf)
+]
+
+.rightcol[
+```{r echo=FALSE, out.width="80%", fig.align='center'}
+knitr::include_graphics("img/dplyr.png")
+```
+]
+
+---
+
+## `select()`
+
+![](https://favstats.shinyapps.io/r_intro/_w_bfa1a45e/images/select.png)
+
+.leftcol[
+```{r echo=FALSE}
+data <- gapminder::gapminder
+```
+
+```{r}
+data
+```
+]
+
+.rightcol[
+```{r}
+select(data, continent, country, pop)
+```
+
+]
+
+---
+
+## `select()`
+
+We can also **remove** variables with a **`-`** (minus)
+
+.leftcol[
+```{r echo=FALSE}
+data <- gapminder::gapminder
+```
+
+```{r}
+data
+```
+]
+
+.rightcol[
+```{r}
+select(data, -year, -pop)
+```
+]
+
+---
+
+## `select()`
+
+**Selection helpers**
+
+These *selection helpers* match variables according to a given pattern.
+
++ `starts_with()` starts with a prefix
+
++ `ends_with()` ends with a suffix
+
++ `contains()` contains a literal string
+
++ `matches()` matches regular expression
 
 
+---
 
+## `filter()`
+
+![](https://favstats.shinyapps.io/r_intro/_w_bfa1a45e/images/filter.png)
+
+.leftcol[
+```{r}
+data
+```
+]
+
+.rightcol[
+```{r}
+filter(data, country == "Philippines")
+```
+]
+
+---
+
+## `mutate()`
+
+![](https://favstats.shinyapps.io/r_intro/_w_dfe6b732/images/mutate.png)
+
+The `mutate` function will take a statement similar to this:
+
++ `variable_name` = `do_some_calculation`
+
++ `variable_name` will be attached at the end of the dataset.
+
+
+---
+
+## `mutate()`
+
+Let's calculate the `gdp`
+
+.leftcol[
+```{r}
+data
+```
+]
+
+.rightcol[
+```{r}
+mutate(data, GDP = gdpPercap * pop)
+```
+]
+
+---
+
+## `rename()`
+
+Changes the variable name while keeping all else intact.
+
++ `new_variable_name` = `old_variable_name`
+
+.leftcol[
+```{r}
+data
+```
+]
+
+.rightcol[
+```{r}
+rename(data, population = pop)
+```
+]
+
+---
+
+## `arrange()`
+
+You can order data by variable to show the highest or lowest values first.
+
+.leftcol[
+consider `lifeExp` default is lowest first
+```{r}
+data
+```
+]
+
+.rightcol[
+`desc()` sort `lifeExp` from highest to lowest
+```{r}
+arrange(data, desc(lifeExp))
+```
+]
+
+
+---
+
+## `group_by` and `summarise()`
+
++ Use when you want to aggregate your data (by groups).
+
++ Sometimes we want to calculate group statistics.
+
+<br>
+
+.center[
+<img src="https://learn.r-journalism.com/wrangling/dplyr/images/groupby.png" style="width: 60%" />
+]
+
+---
+
+## `group_by` and `summarise()`
+
+Suppose we want to know the average population by continent.
+.leftcol40[
+```{r}
+data
+```
+]
+
+.rightcol60[
+```{r}
+grouped_by_continent <- group_by(data, continent)
+summarise(grouped_by_continent, avg_pop = mean(pop))
+```
+]
+
+---
+
+## `group_by` and `summarise()`
+
+Suppose we want to know the average population by continent.
+.leftcol40[
+```{r}
+data
+```
+]
+
+.rightcol60[
+```{r}
+grouped_by_continent <- group_by(data, continent)
+summarised_data <- summarise(grouped_by_continent, avg_pop = mean(pop))
+arrange(summarised_data, desc(avg_pop))
+```
+]
+
+---
+
+.leftcol[
+### Too many codes!
+
+### It's hard to follow!
+
+### It's hard to keep track of the codes!
+]
+
+.rightcol[
+```{r echo=FALSE}
+knitr::include_graphics("img/teary.gif")
+```
+]
+
+---
+
+class: middle center
+
+## `%>%` pipe operator
+
+<center>
+<img src="https://rpodcast.github.io/officer-advrmarkdown/img/magrittr.png" style="width: 50%" />
+</center>
+
+---
+
+## The %>% operator
+
+The **`%>%`** helps your write code in a way that is easier to read and understand.
+
+.leftcol[
+Calculating population by continent **without %>%**
+```{r}
+grouped_by_continent <- group_by(data, continent)
+summarised_data <- summarise(grouped_by_continent, avg_pop = mean(pop))
+arrange(summarised_data, desc(avg_pop))
+```
+]
+
+.rightcol[
+Calculating population by continent **with %>%**
+```{r}
+data %>% 
+  group_by(continent) %>% 
+  summarise(avg_pop = mean(pop)) %>% 
+  arrange(desc(avg_pop))
+```
+]
+
+---
+
+## The %>% operator
+
+Suppose we want to know the evarage life expectancy of Asian countries per year.
+
+.leftcol[
+Calculating population by continent **without %>%**
+
+```{r eval=FALSE}
+filtered_by_asia <- filter(data, continent == "Asia")
+grouped_by_country_year <- group_by(filtered_by_asia, country, year)
+summarise(grouped_by_country_year, avg_lifeExp = mean(lifeExp))
+```
+
+.code-output-scroll[
+```{r echo=FALSE}
+filtered_by_asia <- filter(data, continent == "Asia")
+grouped_by_country_year <- group_by(filtered_by_asia, country, year)
+summarise(grouped_by_country_year, avg_lifeExp = mean(lifeExp))
+```
+]
+]
+
+.rightcol[
+Calculating population by continent **with %>%**
+
+```{r eval=FALSE}
+data %>% 
+  filter(continent == "Asia") %>% 
+  group_by(country, year) %>% 
+  summarise(avg_lifeExp = mean(lifeExp))
+```
+
+.code-output-scroll[
+```{r echo=FALSE}
+data %>% 
+  filter(continent == "Asia") %>% 
+  group_by(country, year) %>% 
+  summarise(avg_lifeExp = mean(lifeExp))
+```
+]
+]
+
+---
+
+## The %>% operator
+
+.leftcol[
+Calculating population by continent **without %>%**
+
+```{r eval=FALSE}
+filtered_by_asia <- filter(data, continent == "Asia")
+grouped_by_country <- group_by(filtered_by_asia, country)
+summarised_by_country <- summarise(grouped_by_country, avg_lifeExp = mean(lifeExp))
+arrange(summarised_by_country, desc(avg_lifeExp))
+```
+
+.code-output-scroll[
+```{r echo=FALSE}
+filtered_by_asia <- filter(data, continent == "Asia")
+grouped_by_country <- group_by(filtered_by_asia, country)
+summarised_by_country <- summarise(grouped_by_country, avg_lifeExp = mean(lifeExp))
+arrange(summarised_by_country, desc(avg_lifeExp))
+```
+]
+]
+
+.rightcol[
+Calculating population by continent **with %>%**
+
+```{r eval=FALSE}
+data %>% 
+  filter(continent == "Asia") %>% 
+  group_by(country) %>% 
+  summarise(avg_lifeExp = mean(lifeExp)) %>% 
+  arrange(desc(avg_lifeExp))
+```
+
+.code-output-scroll[
+```{r echo=FALSE}
+data %>% 
+  filter(continent == "Asia") %>% 
+  group_by(country) %>% 
+  summarise(avg_lifeExp = mean(lifeExp)) %>% 
+  arrange(desc(avg_lifeExp))
+```
+]
+]
+
+---
+
+class: center middle
+
+# Let's practice!
+
+
+---
+
+class: middle center
+
+# Thank you!
+
+#### Some slide content were heavily adapted from [Fabio Votta](https://github.com/favstats)
+#### Slides created via the R packages:
+
+.leftcol[
+<img src="img/xaringan.png" style="display:inline-block; margin: 0" width=20%/> 
+
+### xaringan by Yihui
+]
+
+.rightcol[
+<img src="img/xaringanthemer.png" style="display:inline-block; margin: 0" width=25%/> 
+
+### xaringanthemer and xaringanExtra by Garrick
+]
 
 
 

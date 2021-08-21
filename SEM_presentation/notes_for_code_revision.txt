@@ -10,3 +10,13 @@ CFA-SEM presentation
 
 CFA-SEM code
 * review data path "remove /SEM/..."
+
+
+------------------------
+
+CLOSE websites
+https://favstats.github.io/ds3_r_intro/#120
+https://style.tidyverse.org/syntax.html
+https://github.com/favstats/ds3_r_intro/blob/main/index.Rmd
+https://r4ds.had.co.nz/data-import.html
+https://www.datacamp.com/community/tutorials

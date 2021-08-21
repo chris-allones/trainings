@@ -28,9 +28,15 @@
 .remark-code {
   display: block;
   overflow-x: auto;
+  max-height: 100%;
   padding: .5em;
   color: #fff;
   background: rgb(131, 139, 139);
+}
+
+.code-output-scroll {
+  overflow-y: scroll !important;
+  height: 50vh !important;
 }
 
 
@@ -73,6 +79,10 @@ pre {
 
 .code90 {
   font-size: 90%;
+}
+
+.code-overflow-y {
+  overflow-y: auto;
 }
 
 
@@ -265,6 +275,8 @@ a {
 
 .font70 {
   font-size: 70%;
+  color: #8d99ae;
+  text-align: center;
 }
 
 .font80 {
