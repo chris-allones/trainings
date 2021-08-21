@@ -39,7 +39,7 @@
 class: center, middle, inverse, title-slide
 
 # Structural Equation Modeling (SEM)<br> using R
-## <br> Session 1: Exploratory Factor Analysis (EFA)<br><br>23 August 2021
+## <br> Session 1: Exploratory Factor Analysis (EFA)<br><br>23-24 August 2021
 
 ---
 
@@ -267,10 +267,10 @@ class: middle center
 ]
 
 .rightcol[
-
 .details[
 
 ```r
+library(EFAtools)
 BARTLETT(data, N= nrow(data))
 ```
 
@@ -306,13 +306,8 @@ v The Bartlett's test of sphericity was significant at an alpha level of .05.
 
 #### 2. Kaiser-Meyen-Olkin (KMO Test)
 
-
-```r
-library(psych)
-KMO(data)
-```
-
 .code70[
+.details[
 
 ```
 
@@ -327,6 +322,7 @@ KMO(data)
    x6    x7    x8    x9   x10   x11   x12   x13   x14   x16   x18 
 0.509 0.626 0.519 0.787 0.779 0.622 0.622 0.753 0.511 0.760 0.666 
 ```
+]
 ]
 ---
 
@@ -641,7 +637,7 @@ plot(fa_rotated$loadings[,1], fa_rotated$loadings[,2],
 
 
 .rightcol65[
-&lt;img src="efa_presentation_files/figure-html/unnamed-chunk-20-1.png" width="100%" /&gt;
+&lt;img src="efa_presentation_files/figure-html/unnamed-chunk-18-1.png" width="100%" /&gt;
 ]
 
 ---
@@ -671,7 +667,7 @@ plot(fa_rotated$loadings[,1], fa_rotated$loadings[,2],
 
 #### Orthogonal rotation
 
-&lt;img src="efa_presentation_files/figure-html/unnamed-chunk-22-1.png" width="100%" /&gt;
+&lt;img src="efa_presentation_files/figure-html/unnamed-chunk-20-1.png" width="100%" /&gt;
 
 
 ---
@@ -697,7 +693,7 @@ plot(fa_rotated$loadings[,1], fa_rotated$loadings[,2],
 
 #### Oblique rotation
 
-&lt;img src="efa_presentation_files/figure-html/unnamed-chunk-24-1.png" width="100%" /&gt;
+&lt;img src="efa_presentation_files/figure-html/unnamed-chunk-22-1.png" width="100%" /&gt;
 
 ---
 class: middle center
