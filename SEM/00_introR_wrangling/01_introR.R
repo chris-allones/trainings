@@ -36,7 +36,7 @@ read_xlsx("SEM/00_data/sample_dataset/urbanpop.xlsx")
 read_excel("SEM/00_data/sample_dataset/urbanpop.xls")
 read_excel("SEM/00_data/sample_dataset/urbanpop.xlsx")
 
-### Transform urban pop into longe-format
+### Transform urban pop into long-format
 read_xls("SEM/00_data/sample_dataset/urbanpop.xls") %>% 
  pivot_longer(cols = "1960":"1966",
               names_to = "year",
