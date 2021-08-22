@@ -1,8 +1,5 @@
 ---
 title: "Structural Equation Modeling (SEM)<br> using R"
-subtitle: 
-  - "<br>Intro to R and basic data wrangling<br>"
-  - "<br>23-24 August 2021"  
 output:
   xaringan::moon_reader:
     css:
