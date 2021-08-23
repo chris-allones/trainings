@@ -1,5 +1,6 @@
 ---
 title: "Structural Equation Modeling (SEM)<br> using R"
+subtitle: "Session 1: Exploratory Factor Analysis (EFA)"
 output:
   xaringan::moon_reader:
     css:
@@ -43,7 +44,7 @@ meta() %>%
 
 ```{r setup, echo=FALSE}
 # working directory
-setwd(dir = "D:/OneDrive - KMITL/Documents/Git files/trainings/SEM_presentation/01_efa")
+# setwd(dir = "D:/OneDrive - KMITL/Documents/Git files/trainings/SEM_presentation/01_efa")
 
 options(htmltools.dir.version = FALSE,
         knitr.table.format = "html")
