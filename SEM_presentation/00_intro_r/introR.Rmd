@@ -144,7 +144,7 @@ knitr::include_graphics("img/r_objects.gif")
 
 ## R Objects
 
-+ Objects are assigned a value using **`<-`** consider the piece of code.
++ Objects are assigned a value using **`<-`**
 
 .leftcol[
 .details[
