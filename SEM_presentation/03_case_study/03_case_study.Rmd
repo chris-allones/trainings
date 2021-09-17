@@ -1,5 +1,5 @@
 ---
-title: "Structural Equation Modeling (SEM)<br> using R"
+title: "Training Workshop on the basics of<br> SEM using R"
 subtitle: "Session 3: Case study"
 output:
   xaringan::moon_reader:
