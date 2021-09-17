@@ -1,5 +1,5 @@
 ---
-title: "Structural Equation Modeling (SEM)<br> using R"
+title: "Training Workshop on the basics of<br> SEM using R"
 subtitle: "Session 1: Exploratory Factor Analysis (EFA)"
 output:
   xaringan::moon_reader:
@@ -417,7 +417,7 @@ knitr::include_graphics("image/deriving_factors.png")
 
 #### Common factor analysis
 + Considers only the common variance or shared variance
-+ Primary objective si to identify the laten dimensions or constructs
++ Primary objective is to identify the latent dimensions or constructs
 ]
 
 .rightcol[
