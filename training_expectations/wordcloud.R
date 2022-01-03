@@ -5,7 +5,7 @@ library(janitor)
 library(ggwordcloud)
 
 # import data
-data_expectations <- read_excel("training_expectations/participants-profile.xlsx") %>% 
+data_expectations <- read_csv("https://github.com/chris-allones/trainings/raw/master/training_expectations/participants-profile.csv") %>% 
  clean_names() %>%
  select(expectations = starts_with("expectations")) %>% 
  cbind(id = 1:nrow(.)) %>% 
@@ -32,4 +32,7 @@ ggwordcloud_expectations <- tidy_expecatations %>%
  theme_light() +
  theme(panel.border = element_blank())
 
-ggsave("training_expectations/ggwordcloud_expectations.jpg")
+ggsave("training_expectations/ggwordcloud_expectations.jpg",
+       units = "in",
+       width = 10,
+       height = 7)
